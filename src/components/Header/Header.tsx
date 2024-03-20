@@ -9,7 +9,7 @@ export default function Header() {
 }
 
 const HeaderLayout = styled.header`
-  background-color: #378ce7;
+  background-color: ${(props) => props.theme.colors.primary};
   height: 7vh;
   display: flex;
   align-items: center;

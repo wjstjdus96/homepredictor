@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { flexCenter } from "../../styles/GlobalStyles";
 
 interface IResultMapZoomButton {
   setLevel: React.Dispatch<React.SetStateAction<number>>;
@@ -24,11 +25,9 @@ const ZoomButtonLayout = styled.div`
   flex-direction: column;
 
   button {
+    ${flexCenter}
     width: 1.6rem;
     height: 1.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 1rem;
   }
 `;

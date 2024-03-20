@@ -26,7 +26,7 @@ export default function ResultMap({ lat, lng }: IResultMap) {
 }
 
 const MapLayout = styled.div`
-  height: 93vh;
+  height: 100%;
   width: 80vw;
   position: relative;
 `;
