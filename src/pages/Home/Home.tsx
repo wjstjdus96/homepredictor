@@ -20,13 +20,13 @@ const TopTitleDiv = styled.div`
   height: 5%;
   padding: 1.5% 2.5%;
   background-color: rgba(0,0,0,0);
-`
-const Title = styled.h1`
-  color: white;
-  font-weight: bold;
-  font-size: 36px;
-  @media (max-width: 600px) {
-    font-size: 18px;
+  h1{
+    color: white;
+    font-weight: bold;
+    font-size: 36px;
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
   }
 `
 const SearchBarDiv = styled.div`
@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <MainContainer>
       <TopTitleDiv>
-        <Title>HomePredictor</Title>
+        <h1>HomePredictor</h1>
       </TopTitleDiv>
       <SearchBarDiv>
         <SearchBar></SearchBar>

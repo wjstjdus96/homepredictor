@@ -13,9 +13,9 @@ const SearchBarContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 80%;
-    height: 80px;
+    height: 100px;
     @media (max-width: 600px){
-        height: 60px;
+        height: 80px;
     }
     margin-top: 7.5%;
     @media (max-width: 600px){
@@ -34,15 +34,15 @@ const SearchBarMainDiv = styled.div`
     @media (max-width: 600px){
         height: 50px;
     }
-    background: linear-gradient(to right, #ffffff 0%, #ffffff 88%, #378CE7 88%, #378CE7 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 88%, ${(props) => props.theme.colors.primary} 88%, ${(props) => props.theme.colors.primary} 100%);
     border-radius: 100px;
 `
 const SearchContent = styled.input`
     display: flex;
     align-items: center;
-    width: 80%;
+    width: 88%;
     height: 100%;
-    padding: 0 4%;
+    padding: 0 30px;
     background-color: rgba(0,0,0,0);
     color: rgba(0,0,0,0.5);
     border: 0;
@@ -58,18 +58,18 @@ const SearchButton = styled.div`
     justify-content: center;
     width: 12%;
     height: 100%;
-    background-color: #378CE7;
+    background-color:${(props) => props.theme.colors.primary};
     border-radius: 0 100px 100px 0;
     &:hover{
         background-color: #2b77c9;
     }
-`
-const SearchImg = styled.img`
-    width: 40px;
-    height: 40px;
-    @media (max-width: 600px){
-        width: 20px;
-        height: 20px;
+    img{
+        width: 40px;
+        height: 40px;
+        @media (max-width: 600px){
+            width: 20px;
+            height: 20px;
+        }
     }
 `
 const SearchResultDiv = styled.div`
@@ -82,8 +82,8 @@ const SearchResultDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: calc(100% - 60px);
-    max-height: 500px;
+    width: 100%;
+    max-height: 60vh;
     padding: 10px 30px;
     background-color: white;
     border-radius: 50px;
@@ -115,6 +115,7 @@ const SearchResultContent = styled.div`
     width: 100%;
     height: 40px;
     padding: 5px 0;
+    margin: 3px 0;
     color: rgba(0,0,0,0.75);
     font-size: 18px;
     @media (max-width: 600px){
@@ -133,7 +134,7 @@ const NoResearchContent = styled(SearchResultContent)`
 `
 const HighLightSpan = styled.span`
     font-weight: bold;
-    color: #378CE7;
+    color: ${(props) => props.theme.colors.primary};
 `
 export const SearchBar = () => {
     const [address, setAddress] = useState<string>('')
@@ -181,7 +182,7 @@ export const SearchBar = () => {
                     onChange={typeAddress}
                 ></SearchContent>
                 <SearchButton>
-                    <SearchImg src={`${process.env.PUBLIC_URL}/img/search.png`}></SearchImg>
+                    <img src={`${process.env.PUBLIC_URL}/img/search.png`} alt='Searchbar'></img>
                 </SearchButton>
             </SearchBarMainDiv>
             {address.length > 0 ? (
