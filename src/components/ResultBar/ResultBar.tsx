@@ -5,6 +5,6 @@ export default function ResultBar() {
 }
 
 const ResultBarLayout = styled.section`
-  height: 100vh;
+  height: 100%;
   width: 20vw;
 `;

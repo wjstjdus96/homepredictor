@@ -18,5 +18,6 @@ export default function Result() {
 const ResultLayout = styled.div``;
 
 const ResultBodyBox = styled.main`
+  height: 93vh;
   display: flex;
 `;
