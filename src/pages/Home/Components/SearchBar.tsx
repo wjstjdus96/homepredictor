@@ -2,7 +2,10 @@ import styled from "styled-components"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-import { Town, townData } from "../DummyData/DummyData"
+interface Town{
+    bdNm?:string;
+    roadAddrPart1?:string;
+}
 
 const SearchBarContainer = styled.div`
     position: relative;
@@ -134,10 +137,27 @@ const HighLightSpan = styled.span`
 `
 export const SearchBar = () => {
     const [address, setAddress] = useState<string>('')
-    const [selectedTownData, setSelectedTownData] = useState<Town[]>([])
+    const [selectedTownData, setSelectedTownData] = useState<any>([])
+    //일단 공공데이터로 Test
     const typeAddress = (e: any) => {
+        const apiUrl = 'https://business.juso.go.kr/addrlink/addrLinkApi.do';
+        const params = {
+            confmKey: 'devU01TX0FVVEgyMDI0MDMyMDE1NDQxMzExNDYxNzE=',
+            currentPage: 1,
+            countPerPage: 10,
+            firstSort:'none',
+            keyword: e.target.value,
+            resultType: 'json'
+        };
+        
+        axios.get(apiUrl, { params })
+            .then(response => {
+                setSelectedTownData(response.data.results.juso)
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
         setAddress(e.target.value)
-        setSelectedTownData(townData.filter(el => el.town.includes(e.target.value)))
     }
     const boldMatchingSubstring = (str: string, substr: string) => {
         const index = str.indexOf(substr);
@@ -166,11 +186,16 @@ export const SearchBar = () => {
             </SearchBarMainDiv>
             {address.length > 0 ? (
                 <SearchResultDiv>
-                    {selectedTownData.length > 0 ? (
+                    {selectedTownData !== null && selectedTownData.length > 0 ? (
                         <ScrollDiv>
-                            {selectedTownData.map(el => (
+                            {selectedTownData.map((el:any) => (
                                 <SearchResultContent>
-                                    {boldMatchingSubstring(el.town, address)}
+                                    {boldMatchingSubstring(el.roadAddrPart1, address)}
+                                </SearchResultContent>
+                            ))}
+                            {selectedTownData.map((el:any) => (
+                                <SearchResultContent>
+                                    {boldMatchingSubstring(el.bdNm, address)}
                                 </SearchResultContent>
                             ))}
                         </ScrollDiv>
