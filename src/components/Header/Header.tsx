@@ -13,8 +13,10 @@ const HeaderLayout = styled.header`
   height: 7vh;
   display: flex;
   align-items: center;
+
   h2 {
     color: white;
     margin-left: 1rem;
+    font-weight: 700;
   }
 `;
