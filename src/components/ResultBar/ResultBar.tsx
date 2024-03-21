@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ResultBarHead from "./ResultBarHead";
 import { useState } from "react";
 import ResultBarSearch from "./ResultBarSearch";
+import ResultBarMenu from "./ResultBarMenu";
 
 export default function ResultBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,7 @@ export default function ResultBar() {
         apartmentAdd={"서울특별시 영등포구 당산로 95"}
         setIsOpen={setIsOpen}
       />
+      <ResultBarMenu />
     </ResultBarLayout>
   );
 }

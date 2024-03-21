@@ -29,13 +29,14 @@ export default function ResultBarHead({
 const ResultBarHeadContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px ${(props) => props.theme.padding.searchBar};
+  align-items: center;
+  padding: 15px ${(props) => props.theme.padding.searchBar};
 `;
 
 const SearchTitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   p {
     font-size: x-small;
   }
