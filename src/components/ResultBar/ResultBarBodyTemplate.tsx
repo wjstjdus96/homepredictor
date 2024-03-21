@@ -4,14 +4,16 @@ import styled from "styled-components";
 interface IResultBarBodyTemplate {
   children: React.ReactNode;
   title: string;
+  scrollRef: any;
 }
 
 export default function ResultBarBodyTemplate({
   children,
   title,
+  scrollRef,
 }: IResultBarBodyTemplate) {
   return (
-    <ResultBodyTemplateContainer>
+    <ResultBodyTemplateContainer ref={scrollRef}>
       <h5>{title}</h5>
       {children}
     </ResultBodyTemplateContainer>

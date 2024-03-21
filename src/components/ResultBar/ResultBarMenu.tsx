@@ -1,13 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function ResultBarMenu() {
+const RESULT_TAB = [
+  { idx: 0, name: "거래예측가" },
+  { idx: 1, name: "교통" },
+  { idx: 2, name: "주변시설" },
+  { idx: 3, name: "주변뉴스" },
+];
+
+interface IResultBarMenu {
+  tabMenuRef: any;
+  setTabMenu: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function ResultBarMenu({
+  tabMenuRef,
+  setTabMenu,
+}: IResultBarMenu) {
   return (
     <ResultBarMenuContainer>
-      <span>거래예측가</span>
-      <span>교통</span>
-      <span>주변시설</span>
-      <span>관련뉴스</span>
+      {RESULT_TAB.map(({ idx, name }) => (
+        <span
+          key={idx}
+          ref={(ref) => (tabMenuRef.current[idx] = ref)}
+          onClick={() => {
+            setTabMenu(idx);
+          }}
+        >
+          {name}
+        </span>
+      ))}
     </ResultBarMenuContainer>
   );
 }
@@ -23,5 +45,6 @@ const ResultBarMenuContainer = styled.div`
     font-size: x-small;
     font-weight: 700;
     color: ${(props) => props.theme.colors.grayFont};
+    cursor: pointer;
   }
 `;
