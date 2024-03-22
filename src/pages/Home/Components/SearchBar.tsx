@@ -1,10 +1,70 @@
 import styled from "styled-components"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import axios from "axios"
 
-interface Town{
-    bdNm?:string;
-    roadAddrPart1?:string;
+export const SearchBar = () => {
+    const [address, setAddress] = useState<string>('')
+    const [selectedTownData, setSelectedTownData] = useState<any>([])
+    //일단 공공데이터로 Test
+    const typeAddress = (e: any) => {
+        const apiUrl = 'https://api.home-predictor.com/apartments';
+        
+        axios.get(`${apiUrl}?address=${e.target.value}`, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+              }
+        })
+            .then(response => {
+                setSelectedTownData(response.data.slice(0, 10))
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        setAddress(e.target.value)
+    }
+    const boldMatchingSubstring = (str: string, substr: string) => {
+        const index = str.indexOf(substr);
+        if (index !== -1) {
+            return (
+                <span>
+                    {str.substring(0, index)}
+                    <HighLightSpan>{substr}</HighLightSpan>
+                    {str.substring(index + substr.length)}
+                </span>
+            );
+        }
+        return str;
+    };
+
+    return (
+        <SearchBarContainer>
+            <SearchBarMainDiv>
+                <SearchContent
+                    type='text' placeholder="주소, 건물명 등을 입력하세요"
+                    onChange={typeAddress}
+                ></SearchContent>
+                <SearchButton>
+                    <img src={`${process.env.PUBLIC_URL}/img/search.png`} alt='Searchbar'></img>
+                </SearchButton>
+            </SearchBarMainDiv>
+            {address.length > 0 ? (
+                <SearchResultDiv>
+                    {selectedTownData !== null && selectedTownData.length > 0 ? (
+                        <ScrollDiv>
+                            {selectedTownData.map((el:any) => (
+                                <SearchResultContent>
+                                    {boldMatchingSubstring(el.address, address)}
+                                </SearchResultContent>
+                            ))}
+                        </ScrollDiv>
+                        ) : (
+                            <NoResearchContent>검색 결과가 없습니다</NoResearchContent>
+                        )}
+                </SearchResultDiv>
+                ) : ''}
+        </SearchBarContainer>
+    )
 }
 
 const SearchBarContainer = styled.div`
@@ -136,75 +196,3 @@ const HighLightSpan = styled.span`
     font-weight: bold;
     color: ${(props) => props.theme.colors.primary};
 `
-export const SearchBar = () => {
-    const [address, setAddress] = useState<string>('')
-    const [selectedTownData, setSelectedTownData] = useState<any>([])
-    //일단 공공데이터로 Test
-    const typeAddress = (e: any) => {
-        const apiUrl = 'https://business.juso.go.kr/addrlink/addrLinkApi.do';
-        const params = {
-            confmKey: 'devU01TX0FVVEgyMDI0MDMyMDE1NDQxMzExNDYxNzE=',
-            currentPage: 1,
-            countPerPage: 10,
-            firstSort:'none',
-            keyword: e.target.value,
-            resultType: 'json'
-        };
-        
-        axios.get(apiUrl, { params })
-            .then(response => {
-                setSelectedTownData(response.data.results.juso)
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-        setAddress(e.target.value)
-    }
-    const boldMatchingSubstring = (str: string, substr: string) => {
-        const index = str.indexOf(substr);
-        if (index !== -1) {
-            return (
-                <span>
-                    {str.substring(0, index)}
-                    <HighLightSpan>{substr}</HighLightSpan>
-                    {str.substring(index + substr.length)}
-                </span>
-            );
-        }
-        return str;
-    };
-
-    return (
-        <SearchBarContainer>
-            <SearchBarMainDiv>
-                <SearchContent
-                    type='text' placeholder="주소, 건물명 등을 입력하세요"
-                    onChange={typeAddress}
-                ></SearchContent>
-                <SearchButton>
-                    <img src={`${process.env.PUBLIC_URL}/img/search.png`} alt='Searchbar'></img>
-                </SearchButton>
-            </SearchBarMainDiv>
-            {address.length > 0 ? (
-                <SearchResultDiv>
-                    {selectedTownData !== null && selectedTownData.length > 0 ? (
-                        <ScrollDiv>
-                            {selectedTownData.map((el:any) => (
-                                <SearchResultContent>
-                                    {boldMatchingSubstring(el.roadAddrPart1, address)}
-                                </SearchResultContent>
-                            ))}
-                            {selectedTownData.map((el:any) => (
-                                <SearchResultContent>
-                                    {boldMatchingSubstring(el.bdNm, address)}
-                                </SearchResultContent>
-                            ))}
-                        </ScrollDiv>
-                        ) : (
-                            <NoResearchContent>검색 결과가 없습니다</NoResearchContent>
-                        )}
-                </SearchResultDiv>
-                ) : ''}
-        </SearchBarContainer>
-    )
-}

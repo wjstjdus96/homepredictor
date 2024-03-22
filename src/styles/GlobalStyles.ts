@@ -14,3 +14,41 @@ export const flexCenter = css`
   justify-content: center;
   align-items: center;
 `;
+export const descLeft = css`
+  h1{
+        width: 100%;
+        color: black;
+        font-size: 3em;
+        margin-bottom: 25px;
+        text-align: left;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        p{
+            margin: 1px 0;
+            color: #828282;
+            text-align: left;
+        }
+    }
+`
+export const descRight = css`
+  h1{
+        width: 100%;
+        color: black;
+        font-size: 3em;
+        margin-bottom: 25px;
+        text-align: right;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        p{
+            margin: 1px 0;
+            color: #828282;
+            text-align: right;
+        }
+    }
+`

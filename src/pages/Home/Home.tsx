@@ -1,6 +1,22 @@
 import styled from 'styled-components'
 
+import Header from '../../components/Header/Header'
 import { SearchBar } from './Components/SearchBar'
+import { FirstSection } from './Components/FirstSection'
+
+export default function Home() {
+  return (
+    <>
+      <MainContainer>
+        <Header></Header>
+        <SearchBarDiv>
+          <SearchBar></SearchBar>
+        </SearchBarDiv>
+      </MainContainer>
+      <FirstSection></FirstSection>
+    </>
+  )
+}
 
 const MainContainer = styled.div`
   display: flex;
@@ -12,38 +28,9 @@ const MainContainer = styled.div`
   background-position: center center;
   margin: 0;
 `
-const TopTitleDiv = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 95%;
-  height: 5%;
-  padding: 1.5% 2.5%;
-  background-color: rgba(0,0,0,0);
-  h1{
-    color: white;
-    font-weight: bold;
-    font-size: 36px;
-    @media (max-width: 600px) {
-      font-size: 18px;
-    }
-  }
-`
 const SearchBarDiv = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 95%;
 `
-export default function Home() {
-  return (
-    <MainContainer>
-      <TopTitleDiv>
-        <h1>HomePredictor</h1>
-      </TopTitleDiv>
-      <SearchBarDiv>
-        <SearchBar></SearchBar>
-      </SearchBarDiv>
-    </MainContainer>
-  )
-}
