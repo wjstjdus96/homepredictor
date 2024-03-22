@@ -18,6 +18,29 @@ export default function ResultBar() {
     scrollRef.current[tabMenuIdx]?.scrollIntoView({ behavior: "smooth" });
   }, [scrollRef, tabMenuIdx]);
 
+  useEffect(() => {
+    var resultBody = document.getElementById("resultBody");
+    const changeTabMenuStyle = () => {
+      scrollRef.current.forEach((ref, idx) => {
+        const targetTop = ref?.offsetTop! - ref?.offsetHeight!;
+        const scrollTop = resultBody?.scrollTop!;
+        if (targetTop < scrollTop) {
+          tabMenuRef.current.forEach((ref, tabIdx) => {
+            if (idx == tabIdx) {
+              ref!.className += " active";
+            } else {
+              ref!.className = ref!.className.replace(" active", "");
+            }
+          });
+        }
+      });
+    };
+    resultBody!.addEventListener("scroll", changeTabMenuStyle);
+    return () => {
+      resultBody!.removeEventListener("scroll", changeTabMenuStyle);
+    };
+  }, [scrollRef]);
+
   return (
     <ResultBarContainer>
       {isOpen && <ResultBarSearch />}
@@ -27,7 +50,7 @@ export default function ResultBar() {
         setIsOpen={setIsOpen}
       />
       <ResultBarMenu tabMenuRef={tabMenuRef} setTabMenu={setTabMenuIdx} />
-      <ResultBodyBox>
+      <ResultBodyBox id="resultBody">
         <PredictedPrice
           scrollRef={(ref: any) => (scrollRef.current[0] = ref)}
         />
@@ -42,6 +65,8 @@ export default function ResultBar() {
 const ResultBarContainer = styled.section`
   height: 100%;
   width: 20vw;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ResultBodyBox = styled.div`

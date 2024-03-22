@@ -46,5 +46,8 @@ const ResultBarMenuContainer = styled.div`
     font-weight: 700;
     color: ${(props) => props.theme.colors.grayFont};
     cursor: pointer;
+    &.active {
+      color: black;
+    }
   }
 `;
