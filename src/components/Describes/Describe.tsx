@@ -104,5 +104,9 @@ const MainTitle = styled.h1<Idx>`
     width: 100%;
     font-size: 2em;
     color:${(props) => props.theme.colors.primary};
-    text-align: ${props => props.idx % 2 === 0 ? 'right' : 'left'}
+    text-align: ${props => props.idx % 2 === 0 ? 'right' : 'left'};
+    @media (max-width: 1280px){
+        font-size: 1em;
+        text-align: left;
+    }
 `
