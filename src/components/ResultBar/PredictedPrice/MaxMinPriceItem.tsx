@@ -9,12 +9,33 @@ interface IMaxMinPriceItem {
 export default function MaxMinPriceItem({ name, item }: IMaxMinPriceItem) {
   return (
     <MaxMinPriceItemContainer>
-      <h6>{name}</h6>
-      <div>{item.month}</div>
+      <p>{name}</p>
+      <PriceBox>
+        <p>{item.price}</p>
+        <p>{item.month}</p>
+      </PriceBox>
     </MaxMinPriceItemContainer>
   );
 }
 
 const MaxMinPriceItemContainer = styled.div`
   display: flex;
+  gap: 8px;
+
+  & > p {
+    font-size: small;
+    font-weight: 600;
+  }
+`;
+
+const PriceBox = styled.div`
+  & > p:first-child {
+    font-size: small;
+  }
+  & > p:last-child {
+    font-size: x-small;
+    color: ${(props) => props.theme.colors.grayFont};
+    padding-left: 2px;
+    margin-top: 2px;
+  }
 `;

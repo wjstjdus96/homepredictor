@@ -47,4 +47,76 @@ export const temp_data = [
       price: 1000000,
     },
   },
+  {
+    apartmentId: 1222,
+    size: 23,
+    max: {
+      month: "2021.03",
+      price: 100,
+    },
+    min: {
+      month: "2021.03",
+      price: 1000000,
+    },
+  },
+  {
+    apartmentId: 1222,
+    size: 23,
+    max: {
+      month: "2021.03",
+      price: 100,
+    },
+    min: {
+      month: "2021.03",
+      price: 1000000,
+    },
+  },
+  {
+    apartmentId: 1222,
+    size: 23,
+    max: {
+      month: "2021.03",
+      price: 100,
+    },
+    min: {
+      month: "2021.03",
+      price: 1000000,
+    },
+  },
+  {
+    apartmentId: 1222,
+    size: 23,
+    max: {
+      month: "2021.03",
+      price: 100,
+    },
+    min: {
+      month: "2021.03",
+      price: 1000000,
+    },
+  },
+  {
+    apartmentId: 1222,
+    size: 23,
+    max: {
+      month: "2021.03",
+      price: 100,
+    },
+    min: {
+      month: "2021.03",
+      price: 1000000,
+    },
+  },
+  {
+    apartmentId: 1222,
+    size: 23,
+    max: {
+      month: "2021.03",
+      price: 100,
+    },
+    min: {
+      month: "2021.03",
+      price: 1000000,
+    },
+  },
 ];

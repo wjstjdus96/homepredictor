@@ -22,6 +22,18 @@ export default function MaxMinPrice({
   );
 }
 
-const MaxMinPriceContainer = styled.div``;
+const MaxMinPriceContainer = styled.div`
+  background-color: rgba(${(props) => props.theme.colors.primaryRGB}, 0.2);
+  border-radius: 20px;
+  padding: 10px 18px 15px;
 
-const MaxMinPriceBox = styled.div``;
+  & > span {
+    font-size: 11px;
+  }
+`;
+
+const MaxMinPriceBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+`;

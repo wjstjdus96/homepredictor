@@ -23,4 +23,8 @@ export default function ResultBarBodyTemplate({
 const ResultBodyTemplateContainer = styled.section`
   padding: 15px ${(props) => props.theme.padding.searchBar};
   border-bottom: 1px solid ${(props) => props.theme.colors.grayFont};
+
+  h5 {
+    margin-bottom: 15px;
+  }
 `;
