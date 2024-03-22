@@ -1,31 +1,50 @@
-import styled from "styled-components"
+import styled, {css, keyframes } from "styled-components"
 import { useState, useEffect } from "react"
+import { useInView } from 'react-intersection-observer';
 
-import { descLeft, descRight } from "../../styles/GlobalStyles";
+import { flexCenter, descLeft, descRight, fadeInAnimation } from "../../styles/GlobalStyles";
 import { Description } from "../../pages/Home/Components/FirstSection";
 
 interface Props{
     info: Description;
     idx: number;
 }
-interface Idx{
+export interface Idx{
     idx: number;
+    isShow?:boolean;
+    isDesc?:boolean;
+}
+interface IsDesc{
+    desc: boolean;
 }
 export const Describe = ({info, idx}:Props) => {
+    const [isShow, setIsShow] = useState<boolean>(false)
+    const { ref, inView } = useInView({
+        threshold: 0.3,
+        triggerOnce: true
+    });
     
-
+    useEffect(() => {
+        if(inView){
+            setIsShow(true)
+        }
+    }, [inView])
     return (
-        <DescribeCotainer idx={idx}>
-            <DescDiv idx={idx}>
-                <h1>
+        <DescribeCotainer ref={ref} idx={idx} isShow={isShow}>
+            <DescDiv idx={idx} isDesc={info.img_src.includes('desc')}>
+                {info.main !== undefined && <MainTitle idx={idx}>{info.main}</MainTitle>}
+                <h2>
                     {info.title.map(el => <>{el}<br/></>)}
-                </h1>
+                </h2>
                 <div>
                     {info.desc.map(el => <p>{el}</p>)}
                 </div>
             </DescDiv>
-            <ImgDiv>
-                <img src={`${process.env.PUBLIC_URL}/img/${info.img_src}`} alt='Graph'></img>
+            <ImgDiv desc={info.img_src.includes('desc')}>
+                <img
+                    src={`${process.env.PUBLIC_URL}/img/${info.img_src}`}
+                    alt={info.img_src}
+                ></img>
             </ImgDiv>
         </DescribeCotainer>
     )
@@ -43,9 +62,13 @@ export const DescribeCotainer = styled.div<Idx>`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 10% auto;
     }
+    opacity: 0;
+    ${props => props.isShow && css`animation: ${fadeInAnimation} 0.5s ease-in-out forwards`};
 `
-const ImgDiv = styled.div`
+const ImgDiv = styled.div<IsDesc>`
+    ${flexCenter}
     width: 500px;
     height: 500px;
     @media (max-width: 600px){
@@ -53,8 +76,10 @@ const ImgDiv = styled.div`
         height: 400px;
     }
     img{
-        width: 100%;
-        height: 100%;
+        width: ${props => props.desc ? '80%' : '100%'};
+        height: ${props => props.desc ? '80%' : '100%'};
+        border-radius: ${props => props.desc && '50px'};
+        box-shadow: ${props => props.desc && '0px 4px 5px rgba(0,0,0,0.5)'};;
     }
 `
 const DescDiv = styled.div<Idx>`
@@ -72,6 +97,12 @@ const DescDiv = styled.div<Idx>`
         width: 400px;
     }
     @media (min-width: 1281px){
-        ${props => props.idx % 2 === 0 ? descLeft : descRight};
+        ${props => props.isDesc ? (props.idx % 2 === 0 ? descRight : descLeft) : (props.idx % 2 === 0 ? descLeft : descRight)};
     }
+`
+const MainTitle = styled.h1<Idx>`
+    width: 100%;
+    font-size: 2em;
+    color:${(props) => props.theme.colors.primary};
+    text-align: ${props => props.idx % 2 === 0 ? 'right' : 'left'}
 `

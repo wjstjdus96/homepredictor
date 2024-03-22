@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import Header from '../../components/Header/Header'
 import { SearchBar } from './Components/SearchBar'
 import { FirstSection } from './Components/FirstSection'
+import { SecondSection } from './Components/SecondSection'
+import { ThirdSection } from './Components/ThirdSection'
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
         </SearchBarDiv>
       </MainContainer>
       <FirstSection></FirstSection>
+      <SecondSection></SecondSection>
+      <ThirdSection></ThirdSection>
     </>
   )
 }

@@ -1,10 +1,10 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { useInView } from 'react-intersection-observer';
 
 import { Describe } from "../../../components/Describes/Describe"
 
 export interface Description{
+    main?:string;
     title: string[];
     desc: string[];
     img_src: string;
@@ -37,11 +37,12 @@ export const FirstSection = () => {
     )
 }
 
-export const SectionCotainer = styled.div`
+export const SectionCotainer = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     height: auto;
     background-color: #FCFCFC;
+    font-weight: bold;
 `
