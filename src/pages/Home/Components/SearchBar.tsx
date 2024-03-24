@@ -1,30 +1,43 @@
 import styled from "styled-components"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
+
+interface HouseInfo{
+    id:number;
+    address:string;
+}
 
 export const SearchBar = () => {
     const [address, setAddress] = useState<string>('')
     const [selectedTownData, setSelectedTownData] = useState<any>([])
     //일단 공공데이터로 Test
     const typeAddress = (e: any) => {
-        const apiUrl = 'https://api.home-predictor.com/apartments';
-        
-        axios.get(`${apiUrl}?address=${e.target.value}`, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
-              }
-        })
+        const apiUrl = 'https://api.home-predictor.com/apartments'    
+        let timer
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            axios.get(`${apiUrl}?address=${e.target.value}`, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+                }
+            })
             .then(response => {
-                setSelectedTownData(response.data.slice(0, 10))
+                setSelectedTownData(response.data.slice(0, 20))
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+                console.error('Error fetching data:', error)
+            })
+        }, 500)
         setAddress(e.target.value)
     }
+    const navigate = useNavigate()
+    const showBuildingInfo = (id:number) => {
+        navigate(`/result/:${id}`)
+    }
     const boldMatchingSubstring = (str: string, substr: string) => {
-        const index = str.indexOf(substr);
+        const index = str.indexOf(substr)
         if (index !== -1) {
             return (
                 <span>
@@ -32,10 +45,10 @@ export const SearchBar = () => {
                     <HighLightSpan>{substr}</HighLightSpan>
                     {str.substring(index + substr.length)}
                 </span>
-            );
+            )
         }
-        return str;
-    };
+        return str
+    }
 
     return (
         <SearchBarContainer>
@@ -52,8 +65,8 @@ export const SearchBar = () => {
                 <SearchResultDiv>
                     {selectedTownData !== null && selectedTownData.length > 0 ? (
                         <ScrollDiv>
-                            {selectedTownData.map((el:any) => (
-                                <SearchResultContent>
+                            {selectedTownData.map((el:HouseInfo, idx:number) => (
+                                <SearchResultContent key={idx} onClick={() => showBuildingInfo(el.id)}>
                                     {boldMatchingSubstring(el.address, address)}
                                 </SearchResultContent>
                             ))}
@@ -186,6 +199,7 @@ const SearchResultContent = styled.div`
     }
     transition: color 0.25s ease;
     overflow:hidden;
+    cursor:pointer;
 `
 const NoResearchContent = styled(SearchResultContent)`
     &:hover{
