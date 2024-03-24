@@ -15,7 +15,7 @@ interface IPredictedHead {
 function PredictedHead({ setSize }: IPredictedHead) {
   const [maxPredicted, setMaxPredicted] = useState<IPrice>();
   const [minPredicted, setMinPredicted] = useState<IPrice>();
-  const [activeBtn, setActiveBtn] = useState(0);
+  const [activeBtn, setActiveBtn] = useState<number>();
 
   const onClickSquare = (
     max: IPrice,
@@ -28,6 +28,11 @@ function PredictedHead({ setSize }: IPredictedHead) {
     setSize(size);
     setActiveBtn(idx);
   };
+
+  useEffect(() => {
+    const firstSize = temp_data[0];
+    onClickSquare(firstSize.max, firstSize.min, firstSize.size, 0);
+  }, []);
 
   return (
     <>
