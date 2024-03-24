@@ -34,10 +34,10 @@ export const Describe = ({info, idx}:Props) => {
             <DescDiv idx={idx} isDesc={info.img_src.includes('desc')}>
                 {info.main !== undefined && <MainTitle idx={idx}>{info.main}</MainTitle>}
                 <h2>
-                    {info.title.map(el => <>{el}<br/></>)}
+                    {info.title.map((el, idx:number) => <span key={idx}>{el}<br/></span>)}
                 </h2>
                 <div>
-                    {info.desc.map(el => <p>{el}</p>)}
+                    {info.desc.map((el, idx:number) => <p key={idx}>{el}</p>)}
                 </div>
             </DescDiv>
             <ImgDiv desc={info.img_src.includes('desc')}>
