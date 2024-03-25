@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { temp_data } from "../../../consts/tempData";
+import { temp_size_data } from "../../../consts/tempData";
 import MaxMinPrice from "./MaxMinPrice";
 
 export interface IPrice {
@@ -30,14 +30,14 @@ function PredictedHead({ setSize }: IPredictedHead) {
   };
 
   useEffect(() => {
-    const firstSize = temp_data[0];
+    const firstSize = temp_size_data[0];
     onClickSquare(firstSize.max, firstSize.min, firstSize.size, 0);
   }, []);
 
   return (
     <>
       <SizeButtonBox>
-        {temp_data.map((item, idx) => (
+        {temp_size_data.map((item, idx) => (
           <SizeButton
             onClick={() => onClickSquare(item.max, item.min, item.size, idx)}
             isActive={activeBtn == idx}
