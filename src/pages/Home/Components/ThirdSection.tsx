@@ -42,7 +42,7 @@ export const ThirdSection = () => {
 
     return (
         <SectionCotainer>
-            {info.map((el, idx) => <Describe info={el} idx={idx}></Describe>)}
+            {info.map((el, idx) => <Describe key={idx} info={el} idx={idx}></Describe>)}
         </SectionCotainer>
     )
 }
