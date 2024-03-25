@@ -3,6 +3,7 @@ import { ApexOptions } from "apexcharts";
 import { useState } from "react";
 import { temp_graph_data } from "../../../consts/tempData";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
+import { convertDate } from "../../../utils/convertDate";
 
 interface IPredictedGraph {
   size: number;
@@ -22,23 +23,15 @@ export default function PredictedGraph({ size }: IPredictedGraph) {
     annotations: {
       xaxis: [
         {
-          x: graphData[predictedIndex].date,
-          borderColor: "#00E396",
-          //   label: {
-          //     borderColor: "#00E396",
-          //     style: {
-          //       color: "#fff",
-          //       background: "#00E396",
-          //     },
-          //     text: "Annotation Text",
-          //   },
+          x: convertDate(graphData[predictedIndex].date),
+          borderColor: "#c2c2c2",
         },
       ],
     },
     chart: {
       type: "area",
       stacked: true,
-      height: 500,
+      height: 900,
       width: 500,
       toolbar: {
         autoSelected: "pan",
@@ -47,16 +40,32 @@ export default function PredictedGraph({ size }: IPredictedGraph) {
       zoom: {
         type: "x",
       },
-    },
-    colors: ["#008FFB", "#00E396"],
-    stroke: {
-      width: 1,
-      curve: "stepline",
+      brush: {},
+      animations: {
+        enabled: true,
+        easing: "easeinout",
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150,
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 350,
+        },
+      },
     },
     fill: {},
+    colors: ["#008FFB", "#00E396"],
+    stroke: {
+      width: 2,
+      curve: "stepline",
+    },
+
     xaxis: {
       categories: graphData.map((item) => item.date),
       labels: {
+        formatter: (value) => convertDate(value),
         style: {
           fontSize: "7px",
         },
@@ -71,7 +80,6 @@ export default function PredictedGraph({ size }: IPredictedGraph) {
         },
         offsetX: -10,
       },
-
       min: 0,
     },
     grid: {

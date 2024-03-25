@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
   }
 `;
 
@@ -15,55 +16,55 @@ export const flexCenter = css`
   align-items: center;
 `;
 export const descLeft = css`
-  h2{
-        width: 100%;
-        color: black;
-        font-size: 3em;
-        margin-bottom: 25px;
-        text-align: left;
-        @media (max-width: 600px){
-          font-size: 2em;
-        }
+  h2 {
+    width: 100%;
+    color: black;
+    font-size: 3em;
+    margin-bottom: 25px;
+    text-align: left;
+    @media (max-width: 600px) {
+      font-size: 2em;
     }
-    div{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        p{
-            margin: 1px 0;
-            color: #828282;
-            text-align: left;
-            @media (max-width: 600px){
-              font-size: 0.75em;
-            }
-        }
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    p {
+      margin: 1px 0;
+      color: #828282;
+      text-align: left;
+      @media (max-width: 600px) {
+        font-size: 0.75em;
+      }
     }
-`
+  }
+`;
 export const descRight = css`
-  h2{
-        width: 100%;
-        color: black;
-        font-size: 3em;
-        margin-bottom: 25px;
-        text-align: right;
-        @media (max-width: 600px){
-          font-size: 2em;
-        }
+  h2 {
+    width: 100%;
+    color: black;
+    font-size: 3em;
+    margin-bottom: 25px;
+    text-align: right;
+    @media (max-width: 600px) {
+      font-size: 2em;
     }
-    div{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        p{
-            margin: 1px 0;
-            color: #828282;
-            text-align: right;
-            @media (max-width: 600px){
-              font-size: 0.75em;
-            }
-        }
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    p {
+      margin: 1px 0;
+      color: #828282;
+      text-align: right;
+      @media (max-width: 600px) {
+        font-size: 0.75em;
+      }
     }
-`
+  }
+`;
 export const fadeInAnimation = keyframes`
   from {
     opacity: 0;

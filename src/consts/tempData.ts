@@ -24,11 +24,11 @@ export const temp_size_data = [
     size: 20,
     max: {
       month: "2021.03",
-      price: 1000000,
+      price: 235000000,
     },
     min: {
       month: "2021.02",
-      price: 19990,
+      price: 215000000,
     },
   },
   {
@@ -36,11 +36,11 @@ export const temp_size_data = [
     size: 21,
     max: {
       month: "2022.03",
-      price: 10030000,
+      price: 260000000,
     },
     min: {
       month: "2023.03",
-      price: 100040,
+      price: 250000000,
     },
   },
   {
@@ -48,11 +48,11 @@ export const temp_size_data = [
     size: 22,
     max: {
       month: "2024.05",
-      price: 120000,
+      price: 290000000,
     },
     min: {
       month: "2026.03",
-      price: 100200,
+      price: 230000000,
     },
   },
   {
@@ -60,83 +60,83 @@ export const temp_size_data = [
     size: 23,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 200000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 190000000,
     },
   },
   {
     apartmentId: 1222,
-    size: 23,
+    size: 24,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 260000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 230000000,
     },
   },
   {
     apartmentId: 1222,
-    size: 23,
+    size: 25,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 800000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 770000000,
     },
   },
   {
     apartmentId: 1222,
-    size: 23,
+    size: 30,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 990000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 670000000,
     },
   },
   {
     apartmentId: 1222,
-    size: 23,
+    size: 33,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 450000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 340000000,
     },
   },
   {
     apartmentId: 1222,
-    size: 23,
+    size: 36,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 230000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 120000000,
     },
   },
   {
     apartmentId: 1222,
-    size: 23,
+    size: 50,
     max: {
       month: "2021.03",
-      price: 100,
+      price: 70000000,
     },
     min: {
       month: "2021.03",
-      price: 1000000,
+      price: 50000000,
     },
   },
 ];

@@ -25,7 +25,7 @@ const MaxMinPriceItemContainer = styled.div`
 
   & > p {
     font-size: small;
-    font-weight: 600;
+    font-weight: 700;
   }
 `;
 

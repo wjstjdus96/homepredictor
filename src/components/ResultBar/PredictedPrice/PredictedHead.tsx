@@ -57,7 +57,7 @@ export default PredictedHead;
 
 const SizeButtonBox = styled.div`
   padding: 0 3px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   display: grid;
   column-gap: 12px;
   row-gap: 9px;
@@ -72,6 +72,6 @@ const SizeButton = styled.button<{ isActive: boolean }>`
   background-color: ${(props) =>
     props.isActive ? `rgba(${props.theme.colors.primaryRGB},0.4)` : "white"};
 
-  font-weight: ${(props) => (props.isActive ? "700" : "500")};
+  font-weight: ${(props) => (props.isActive ? "600" : "500")};
   color: ${(props) => (props.isActive ? "white" : "black")};
 `;

@@ -9,26 +9,28 @@ const RESULT_TAB = [
 ];
 
 interface IResultBarMenu {
-  tabMenuRef: any;
-  setTabMenu: React.Dispatch<React.SetStateAction<number>>;
+  scrollRef: any;
+  tabMenuIdx: number;
 }
 
 export default function ResultBarMenu({
-  tabMenuRef,
-  setTabMenu,
+  scrollRef,
+  tabMenuIdx,
 }: IResultBarMenu) {
+  const onClickTabMenu = (menu: number) => {
+    scrollRef.current[menu]?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <ResultBarMenuContainer>
       {RESULT_TAB.map(({ idx, name }) => (
-        <span
+        <ResultBarMenuItem
           key={idx}
-          ref={(ref) => (tabMenuRef.current[idx] = ref)}
-          onClick={() => {
-            setTabMenu(idx);
-          }}
+          isActive={idx == tabMenuIdx}
+          onClick={() => onClickTabMenu(idx)}
         >
           {name}
-        </span>
+        </ResultBarMenuItem>
       ))}
     </ResultBarMenuContainer>
   );
@@ -40,14 +42,14 @@ const ResultBarMenuContainer = styled.div`
   gap: 10px;
   border-top: 2px solid ${(props) => props.theme.colors.grayFont};
   border-bottom: 2px solid ${(props) => props.theme.colors.grayFont};
+`;
 
-  span {
-    font-size: x-small;
-    font-weight: 700;
-    color: ${(props) => props.theme.colors.grayFont};
-    cursor: pointer;
-    &.active {
-      color: black;
-    }
+const ResultBarMenuItem = styled.span<{ isActive: boolean }>`
+  font-size: x-small;
+  font-weight: 700;
+  color: ${(props) => (props.isActive ? "black" : props.theme.colors.grayFont)};
+  cursor: pointer;
+  &.active {
+    color: red;
   }
 `;
