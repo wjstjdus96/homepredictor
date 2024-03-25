@@ -61,4 +61,17 @@ const ResultBarContainer = styled.section`
 const ResultBodyBox = styled.div`
   height: 100%;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: ${(props) => props.theme.colors.grayFont};
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, 0.1);
+  }
 `;
