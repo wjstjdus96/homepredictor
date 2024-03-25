@@ -14,11 +14,16 @@ interface Selected{
 interface News{
   [key: string]: string;
 }
+interface Page{
+  page: number;
+  curPage:number;
+}
 
 export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [selectedIdx, setSelectedIdx] = useState<number>(0)
   const [dataType, setDataType] = useState<string>('sim')
   const [newsData, setNewsData] = useState<News[]>([])
+  const [curPage, serCurPage] = useState<number>(1)
   const address = useRecoilValue(addressState).split(' ')[1]
   const setDataSim = () => {
     setSelectedIdx(0)
@@ -47,8 +52,32 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
           sort:dataType
         },
       }
-    ).then(res => setNewsData(res.data.items))
-  }, [dataType, address])
+    ).then(res => setNewsData(res.data.items.slice(curPage*4 - 4, curPage*4)))
+  }, [dataType, address, curPage])
+
+  const [pageArr, setPageArr] = useState<number[]>([1,2,3,4,5]);
+  useEffect(() => {
+    if(curPage % 5 === 1){
+      setPageArr(Array.from({ length: 5 }, (_, index) => index + curPage))
+    }
+  }, [curPage])
+  const pagenation = (e:any) => {
+    if(e.target.textContent === 'Prev'){
+      if(curPage === 1){
+        serCurPage(1)
+      } else if(curPage > 1){
+        serCurPage(curPage - 1)
+      }
+    } else if(e.target.textContent === 'Next'){
+      if(curPage === 25){
+        serCurPage(25)
+      } else if(curPage < 25){
+        serCurPage(curPage + 1)
+      }
+    } else {
+      serCurPage(e.target.textContent/1)
+    }
+  }
   return (
     <ResultBarBodyTemplate title="관련뉴스" scrollRef={scrollRef}>
       <RelatedNewsContainer>
@@ -56,17 +85,24 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
           <DataTypeText idx={0} selectedIdx={selectedIdx} onClick={setDataSim}>•정확도순</DataTypeText>
           <DataTypeText idx={1} selectedIdx={selectedIdx} onClick={setDataDate}>•최신순</DataTypeText>
         </RelatedNewsHeader>
-        {newsData.slice(0, 4).map((el:News) => {
+        {newsData.map((el:News) => {
           return (
             <NewsContentDiv>
-              <h3>{el.title.replace(/<\/?b>|&quot;/g, '')}</h3>
-              <p>{el.description.slice(0, 50).replace(/<\/?b>|&quot;/g, '')}...</p>
+              <h3>{el.title.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, '')}</h3>
+              <p>{el.description.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, '')}</p>
               <div>
                 <span>{setDateFormat(el.pubDate)}</span>
               </div>
             </NewsContentDiv>
           )
         })}
+        <PagenationDiv>
+          <div><span onClick={pagenation}>Prev</span></div>
+          <div>
+            {pageArr.map(el => <PageSpan page={el} curPage={curPage} onClick={pagenation}>{el}</PageSpan>)}
+          </div>
+          <div><span onClick={pagenation}>Next</span></div>
+        </PagenationDiv>
       </RelatedNewsContainer>
     </ResultBarBodyTemplate>
   );
@@ -75,7 +111,8 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
 const RelatedNewsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 20rem;
+  align-items: center;
+  background-color: white;
 `;
 const RelatedNewsHeader = styled.div`
   display: flex;
@@ -83,13 +120,13 @@ const RelatedNewsHeader = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: 7%;
+  height: auto;
   padding: 1%;
 `
 const DataTypeText = styled.span<Selected>`
-  width: 25%;
   font-size: 0.5em;
   text-align: center;
+  margin-left: 3%;
   color: ${props => props.selectedIdx === props.idx ? 
   props.theme.colors.primary : props.theme.colors.grayFont};
   transition: 0.3s ease;
@@ -100,14 +137,20 @@ const NewsContentDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
-  height: 22%;
-  padding: 1%;
+  height: 25%;
+  padding: 2%;
   margin: 1% 0;
+  &:hover{
+    background-color: #e9e9e9;
+  }
   h3{
-    font-size: 0.75em;
+    font-size: 1em;
+    margin-bottom: 2%;
   }
   p{
     font-size: 0.5em;
+    margin-bottom: 2%;
+    overflow: hidden;
   }
   div{
     width: 100%;
@@ -117,8 +160,34 @@ const NewsContentDiv = styled.div`
     justify-content: flex-end;
     align-items: center;
     span{
-      font-size: 0.35em;
+      font-size: 0.75em;
       color: ${props => props.theme.colors.grayFont};
     }
   }
+`
+const PagenationDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80%;
+  height: auto;
+  padding: 2%;
+  div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 25%;
+    &:nth-child(2){
+      width: 50%;
+    }
+    span{
+      cursor: pointer;
+    }
+  }
+`
+const PageSpan = styled.span<Page>`
+  font-size: 1em;
+  color:${props => props.curPage === props.page ? props.theme.colors.primary : 'black'};
 `

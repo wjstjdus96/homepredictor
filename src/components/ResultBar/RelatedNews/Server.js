@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors())
 
 app.get('/search', (req, res) => {
-  axios.get(`https://openapi.naver.com/v1/search/news.json?query=${req.query.query}&sort=${req.query.sort}`, {
+  axios.get(`https://openapi.naver.com/v1/search/news.json?query=${req.query.query}&display=100&sort=${req.query.sort}`, {
     headers: {
       'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
       'X-Naver-Client-Secret': process.env.REACT_APP_NAVER_SECRET_KEY,
