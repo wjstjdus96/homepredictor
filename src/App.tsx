@@ -12,7 +12,7 @@ function App() {
         <GlobalStyles />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/result/:id" element={<Result />} />
+          <Route path="/result/:apartmentId" element={<Result />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
