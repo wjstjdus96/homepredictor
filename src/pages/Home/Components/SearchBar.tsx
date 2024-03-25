@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { addressState } from "../State/AddressState"
+import { useSetRecoilState } from "recoil"
 import axios from "axios"
 
 interface HouseInfo{
@@ -11,6 +13,7 @@ interface HouseInfo{
 export const SearchBar = () => {
     const [address, setAddress] = useState<string>('')
     const [selectedTownData, setSelectedTownData] = useState<any>([])
+    const setClickedAddress = useSetRecoilState(addressState)
     //일단 공공데이터로 Test
     const typeAddress = (e: any) => {
         const apiUrl = 'https://api.home-predictor.com/apartments'    
@@ -33,7 +36,8 @@ export const SearchBar = () => {
         setAddress(e.target.value)
     }
     const navigate = useNavigate()
-    const showBuildingInfo = (id:number) => {
+    const showBuildingInfo = (id:number, address:string) => {
+        setClickedAddress(address)
         navigate(`/result/:${id}`)
     }
     const boldMatchingSubstring = (str: string, substr: string) => {
@@ -66,7 +70,7 @@ export const SearchBar = () => {
                     {selectedTownData !== null && selectedTownData.length > 0 ? (
                         <ScrollDiv>
                             {selectedTownData.map((el:HouseInfo, idx:number) => (
-                                <SearchResultContent key={idx} onClick={() => showBuildingInfo(el.id)}>
+                                <SearchResultContent key={idx} onClick={() => showBuildingInfo(el.id, el.address)}>
                                     {boldMatchingSubstring(el.address, address)}
                                 </SearchResultContent>
                             ))}
