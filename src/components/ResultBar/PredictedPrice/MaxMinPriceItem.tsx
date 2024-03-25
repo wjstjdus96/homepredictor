@@ -13,7 +13,7 @@ export default function MaxMinPriceItem({ name, item }: IMaxMinPriceItem) {
       <p>{name}</p>
       <PriceBox>
         <p>{calPriceUnit(item.price)}</p>
-        <p>{item.month}</p>
+        <p>{item.date}개월 후</p>
       </PriceBox>
     </MaxMinPriceItemContainer>
   );
@@ -36,7 +36,6 @@ const PriceBox = styled.div`
   & > p:last-child {
     font-size: x-small;
     color: ${(props) => props.theme.colors.grayFont};
-    padding-left: 2px;
     margin-top: 2px;
   }
 `;
