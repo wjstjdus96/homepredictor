@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { temp_size_data } from "../../../consts/tempData";
 import MaxMinPrice from "./MaxMinPrice";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../../../apis/api";
 
 export interface IPrice {
   month: string;
@@ -16,6 +19,8 @@ function PredictedHead({ setSize }: IPredictedHead) {
   const [maxPredicted, setMaxPredicted] = useState<IPrice>();
   const [minPredicted, setMinPredicted] = useState<IPrice>();
   const [activeBtn, setActiveBtn] = useState<number>();
+  const [sizeData, setSizeData] = useState();
+  const { apartmentId } = useParams();
 
   const onClickSquare = (
     max: IPrice,
@@ -30,6 +35,17 @@ function PredictedHead({ setSize }: IPredictedHead) {
   };
 
   useEffect(() => {
+    //api 완성되는대로 수정 예정
+    axios
+      .get(`${BASE_URL}/v1/apartmenttype/${apartmentId}`)
+      .then((res) => {
+        console.log(res);
+        setSizeData(res.data);
+      })
+      .catch((err) => {
+        console.log("에러가 발생했습니다" + err);
+      });
+
     const firstSize = temp_size_data[0];
     onClickSquare(firstSize.max, firstSize.min, firstSize.size, 0);
   }, []);

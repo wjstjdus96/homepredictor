@@ -91,8 +91,8 @@ export default function PredictedGraph({ size }: IPredictedGraph) {
 
   const series = [
     {
-      name: "price",
-      data: graphData.map((item) => item.price),
+      name: "average price",
+      data: graphData.map((item) => item.average),
     },
   ];
 
