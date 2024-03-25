@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(cors())
 
 app.get('/search', (req, res) => {
-  console.log(req.query)
   axios.get(`https://openapi.naver.com/v1/search/news.json?query=${req.query.query}&sort=${req.query.sort}`, {
     headers: {
       'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
