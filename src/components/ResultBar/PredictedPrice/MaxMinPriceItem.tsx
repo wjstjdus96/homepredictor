@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IPrice } from "./PredictedHead";
+import { calPriceUnit } from "../../../utils/calPriceUnit";
 
 interface IMaxMinPriceItem {
   name: string;
@@ -11,7 +12,7 @@ export default function MaxMinPriceItem({ name, item }: IMaxMinPriceItem) {
     <MaxMinPriceItemContainer>
       <p>{name}</p>
       <PriceBox>
-        <p>{item.price}</p>
+        <p>{calPriceUnit(item.price)}</p>
         <p>{item.month}</p>
       </PriceBox>
     </MaxMinPriceItemContainer>

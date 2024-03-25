@@ -56,11 +56,11 @@ function PredictedHead({ setSize }: IPredictedHead) {
 export default PredictedHead;
 
 const SizeButtonBox = styled.div`
-  padding: 0 5px;
+  padding: 0 3px;
   margin-bottom: 15px;
   display: grid;
-  column-gap: 3px;
-  row-gap: 8px;
+  column-gap: 12px;
+  row-gap: 9px;
   grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
 `;
 
