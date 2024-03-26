@@ -147,3 +147,14 @@ export const temp_size_data = [
     },
   },
 ];
+
+export const temp_traffic_data = {
+  subway: [
+    { name: "홍대입구역", distance: 180, line: "2" },
+    { name: "까치산역", distance: 120, line: "5" },
+  ],
+  bus: [
+    { name: "강원슈퍼", distance: 180 },
+    { name: "까치산역 4번출구", distance: 120 },
+  ],
+};

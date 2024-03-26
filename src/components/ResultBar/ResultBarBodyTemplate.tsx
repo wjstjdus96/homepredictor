@@ -21,7 +21,7 @@ export default function ResultBarBodyTemplate({
 }
 
 const ResultBodyTemplateContainer = styled.section`
-  padding: 15px ${(props) => props.theme.padding.searchBar};
+  padding: 15px ${(props) => props.theme.padding.searchBar} 25px;
   border-bottom: 1px solid ${(props) => props.theme.colors.grayFont};
 
   h5 {
