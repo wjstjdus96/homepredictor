@@ -10,6 +10,4 @@ export default function Facilities({ scrollRef }: IResultBodyTemplate) {
   );
 }
 
-const FacilitiesContainer = styled.div`
-  height: 20rem;
-`;
+const FacilitiesContainer = styled.div``;

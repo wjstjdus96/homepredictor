@@ -10,6 +10,4 @@ export default function Traffic({ scrollRef }: IResultBodyTemplate) {
   );
 }
 
-const TrafficContainer = styled.div`
-  height: 20rem;
-`;
+const TrafficContainer = styled.div``;

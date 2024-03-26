@@ -22,9 +22,9 @@ export default function ResultBar({ apartmentName, apartmentAdd }: IResultBar) {
     var resultBody = document.getElementById("resultBody");
     const changeTabMenuStyle = () => {
       scrollRef.current.forEach((ref, idx) => {
-        const targetTop = ref?.offsetTop! - ref?.offsetHeight!;
-        const scrollTop = resultBody?.scrollTop!;
-        if (targetTop < scrollTop) {
+        const { top } = ref!.getBoundingClientRect();
+        const offsetTop = resultBody?.offsetTop!;
+        if (top - 2 <= offsetTop) {
           setTabMenuIdx(idx);
         }
       });
