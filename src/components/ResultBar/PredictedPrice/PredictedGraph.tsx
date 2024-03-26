@@ -1,53 +1,102 @@
+import { useEffect, useState } from "react";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
+  Brush,
   CartesianGrid,
-  Tooltip,
-  Legend,
-  TooltipProps,
+  Line,
+  LineChart,
   ReferenceLine,
   ResponsiveContainer,
-  Brush,
+  Tooltip,
+  TooltipProps,
+  XAxis,
+  YAxis,
 } from "recharts";
+import styled from "styled-components";
 import { temp_graph_data } from "../../../consts/tempData";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
-import styled from "styled-components";
-import { useState } from "react";
 
 export default function PredictedGraph() {
   const [graphData, setGraphData] = useState(temp_graph_data);
   const predictedIndex = graphData.length - 4;
+  const [brushRange, setBrushRange] = useState([
+    graphData.length - 10,
+    graphData.length - 1,
+  ]);
+  const [colorPercent, setColorPercent] = useState<number>();
 
   const formatYAxis = (tickItem: number) => {
-    return calPriceUnit(tickItem);
+    return new Intl.NumberFormat("ko-KR", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(tickItem);
   };
 
   const formatXAxis = (tickItem: string) => {
     return tickItem.slice(2).replace("-", ".");
   };
 
+  const formatBrush = (tickItem: string) => {
+    return "";
+  };
+
+  const handleBrushChange = (e: any) => {
+    setBrushRange((prev) => [e.startIndex, prev[1]]);
+  };
+
+  useEffect(() => {
+    const tot = brushRange[1] - brushRange[0];
+    const percentage = 100 - (2.6 / (tot - 1)) * 100;
+    setColorPercent(percentage);
+  }, [brushRange]);
+
   return (
-    <ResponsiveContainer width="100%" height={250}>
-      <LineChart data={graphData} margin={{ left: -30, top: 20, right: 10 }}>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <XAxis
-          dataKey="date"
-          tickFormatter={formatXAxis}
-          tick={{ fontSize: 10, fill: "#B9BABA" }}
-        />
-        <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 10 }} />
-        <ReferenceLine x={graphData[predictedIndex].date} stroke="red" />
-        <Tooltip content={CustomTooltip} />
-        <Line
-          type="stepAfter"
-          dataKey="average"
-          stroke="#378ce7"
-          strokeWidth={1.5}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <PredictedGraphContainer>
+      <ResponsiveContainer width="95%" height={270}>
+        <LineChart data={graphData} margin={{ left: -30, top: 20, right: 10 }}>
+          <defs>
+            <linearGradient id="gradient" x1="0" y1="0" x2="100%" y2="0">
+              <stop offset="0%" stopColor="#378ce7" />
+              <stop offset={`${colorPercent}%`} stopColor="#378ce7" />
+              <stop offset={`${colorPercent}%`} stopColor="red" />
+              <stop offset="100%" stopColor="red" />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis
+            dataKey="date"
+            tickFormatter={formatXAxis}
+            tick={{ fontSize: 10, fill: "#B9BABA" }}
+            height={35}
+          />
+          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 10 }} />
+          <ReferenceLine
+            x={graphData[predictedIndex].date}
+            stroke="#B9BABA"
+            strokeWidth={1.5}
+          />
+          <Tooltip content={CustomTooltip} />
+          <Line
+            type="stepAfter"
+            dataKey="average"
+            stroke="url(#gradient)"
+            strokeWidth={1.5}
+            dot={false}
+          />
+          <Brush
+            dataKey="x"
+            height={8}
+            stroke="#378ce7"
+            startIndex={brushRange[0]}
+            endIndex={graphData.length - 1}
+            onChange={handleBrushChange}
+            tickFormatter={formatBrush}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+      <p>
+        {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
+      </p>
+    </PredictedGraphContainer>
   );
 }
 
@@ -74,11 +123,23 @@ const CustomToolTipContainer = styled.div`
   padding: 5px 15px;
   border-radius: 10px;
   border: 1px solid rgba(${(props) => props.theme.colors.primaryRGB}, 0.5);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 5px rgba(${(props) => props.theme.colors.primaryRGB}, 0.1);
   display: flex;
   flex-direction: column;
   gap: 3px;
   .average {
     font-weight: 700;
+  }
+`;
+
+const PredictedGraphContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > p:last-child {
+    margin-top: 6px;
+    font-size: 13px;
+    color: ${(props) => props.theme.colors.primary};
   }
 `;

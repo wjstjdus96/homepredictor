@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 import PredictedHead from "./PredictedHead";
 import { useState } from "react";
-// import PredictedGraph from "./PredictedGraphApex";
 import PredictedGraph from "./PredictedGraph";
 
 export interface IResultBodyTemplate {
@@ -16,7 +15,6 @@ export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
     <ResultBarBodyTemplate title="거래예측가" scrollRef={scrollRef}>
       <PredictedHead setSize={setSize} />
       <PredictedGraph />
-      {/* <PredictedGraph size={size} /> */}
     </ResultBarBodyTemplate>
   );
 }

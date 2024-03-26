@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 interface IBasicInfo {
   latitude: number;
   longitude: number;
+  apartmentName: string;
+  address: string;
 }
 
 export default function Result() {
@@ -33,8 +35,8 @@ export default function Result() {
       {basicInfo && (
         <ResultBodyBox>
           <ResultBar
-            apartmentName={"현대아파트"}
-            apartmentAdd={"서울특별시 영등포구 당산로 95"}
+            apartmentName={basicInfo.apartmentName}
+            apartmentAdd={basicInfo.address}
           />
           <ResultMap lat={basicInfo.latitude} lng={basicInfo.longitude} />
         </ResultBodyBox>
