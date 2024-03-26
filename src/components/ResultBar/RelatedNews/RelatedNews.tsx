@@ -28,10 +28,12 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const setDataSim = () => {
     setSelectedIdx(0)
     setDataType('sim')
+    serCurPage(1)
   }
   const setDataDate = () => {
     setSelectedIdx(1)
     setDataType('date')
+    serCurPage(1)
   }
   const setDateFormat =(str:string) => {
     const date = new Date(str)
@@ -55,10 +57,16 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
     ).then(res => setNewsData(res.data.items.slice(curPage*4 - 4, curPage*4)))
   }, [dataType, address, curPage])
 
+  const openNews = (url:string) => {
+    window.open(url, "_blank");
+  }
+
   const [pageArr, setPageArr] = useState<number[]>([1,2,3,4,5]);
   useEffect(() => {
     if(curPage % 5 === 1){
       setPageArr(Array.from({ length: 5 }, (_, index) => index + curPage))
+    } else if(curPage % 5 === 0){
+      setPageArr(Array.from({ length: 5 }, (_, index) => curPage - index).reverse())
     }
   }, [curPage])
   const pagenation = (e:any) => {
@@ -87,7 +95,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
         </RelatedNewsHeader>
         {newsData.map((el:News) => {
           return (
-            <NewsContentDiv>
+            <NewsContentDiv onClick={() => openNews(el.originallink)}>
               <h3>{el.title.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, '')}</h3>
               <p>{el.description.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, '')}</p>
               <div>
@@ -140,6 +148,8 @@ const NewsContentDiv = styled.div`
   height: 25%;
   padding: 2%;
   margin: 1% 0;
+  cursor: pointer;
+  transition: 0.3s ease;
   &:hover{
     background-color: #e9e9e9;
   }
