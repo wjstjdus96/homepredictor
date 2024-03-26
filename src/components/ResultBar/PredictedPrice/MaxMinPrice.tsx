@@ -23,7 +23,7 @@ export default function MaxMinPrice({
 }
 
 const MaxMinPriceContainer = styled.div`
-  background-color: rgba(${(props) => props.theme.colors.primaryRGB}, 0.2);
+  background-color: rgba(${(props) => props.theme.colors.primaryRGB}, 0.1);
   border-radius: 20px;
   padding: 10px 23px 15px;
   margin-bottom: 10px;

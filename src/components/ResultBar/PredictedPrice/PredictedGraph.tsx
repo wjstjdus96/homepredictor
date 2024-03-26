@@ -1,100 +1,145 @@
-import ReactApexChart from "react-apexcharts";
-import { ApexOptions } from "apexcharts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  Brush,
+  CartesianGrid,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  TooltipProps,
+  XAxis,
+  YAxis,
+} from "recharts";
+import styled from "styled-components";
 import { temp_graph_data } from "../../../consts/tempData";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
-import { convertDate } from "../../../utils/convertDate";
 
-interface IPredictedGraph {
-  size: number;
-}
-
-interface ISeriesIndex {
-  value: any;
-  seriesIndex: any;
-  w: any;
-}
-
-export default function PredictedGraph({ size }: IPredictedGraph) {
+export default function PredictedGraph() {
   const [graphData, setGraphData] = useState(temp_graph_data);
-  const predictedIndex = graphData.length - 3;
+  const predictedIndex = graphData.length - 4;
+  const [brushRange, setBrushRange] = useState([
+    graphData.length - 10,
+    graphData.length - 1,
+  ]);
+  const [colorPercent, setColorPercent] = useState<number>();
 
-  const options: ApexOptions = {
-    annotations: {
-      xaxis: [
-        {
-          x: convertDate(graphData[predictedIndex].date),
-          borderColor: "#c2c2c2",
-        },
-      ],
-    },
-    chart: {
-      type: "area",
-      stacked: true,
-      height: 900,
-      width: 500,
-      toolbar: {
-        autoSelected: "pan",
-        show: false,
-      },
-      zoom: {
-        type: "x",
-      },
-      brush: {},
-      animations: {
-        enabled: true,
-        easing: "easeinout",
-        speed: 800,
-        animateGradually: {
-          enabled: true,
-          delay: 150,
-        },
-        dynamicAnimation: {
-          enabled: true,
-          speed: 350,
-        },
-      },
-    },
-    fill: {},
-    colors: ["#008FFB", "#00E396"],
-    stroke: {
-      width: 2,
-      curve: "stepline",
-    },
-
-    xaxis: {
-      categories: graphData.map((item) => item.date),
-      labels: {
-        formatter: (value) => convertDate(value),
-        style: {
-          fontSize: "7px",
-        },
-      },
-      range: 10,
-    },
-    yaxis: {
-      labels: {
-        formatter: (value) => calPriceUnit(value),
-        style: {
-          fontSize: "7px",
-        },
-        offsetX: -10,
-      },
-      min: 0,
-    },
-    grid: {
-      padding: {
-        left: 0,
-      },
-    },
+  const formatYAxis = (tickItem: number) => {
+    return new Intl.NumberFormat("ko-KR", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(tickItem);
   };
 
-  const series = [
-    {
-      name: "average price",
-      data: graphData.map((item) => item.average),
-    },
-  ];
+  const formatXAxis = (tickItem: string) => {
+    return tickItem.slice(2).replace("-", ".");
+  };
 
-  return <ReactApexChart options={options} series={series} />;
+  const formatBrush = (tickItem: string) => {
+    return "";
+  };
+
+  const handleBrushChange = (e: any) => {
+    setBrushRange((prev) => [e.startIndex, prev[1]]);
+  };
+
+  useEffect(() => {
+    const tot = brushRange[1] - brushRange[0];
+    const percentage = 100 - (2.6 / (tot - 1)) * 100;
+    setColorPercent(percentage);
+  }, [brushRange]);
+
+  return (
+    <PredictedGraphContainer>
+      <ResponsiveContainer width="95%" height={270}>
+        <LineChart data={graphData} margin={{ left: -30, top: 20, right: 10 }}>
+          <defs>
+            <linearGradient id="gradient" x1="0" y1="0" x2="100%" y2="0">
+              <stop offset="0%" stopColor="#378ce7" />
+              <stop offset={`${colorPercent}%`} stopColor="#378ce7" />
+              <stop offset={`${colorPercent}%`} stopColor="red" />
+              <stop offset="100%" stopColor="red" />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis
+            dataKey="date"
+            tickFormatter={formatXAxis}
+            tick={{ fontSize: 10, fill: "#B9BABA" }}
+            height={35}
+          />
+          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 10 }} />
+          <ReferenceLine
+            x={graphData[predictedIndex].date}
+            stroke="#B9BABA"
+            strokeWidth={1.5}
+          />
+          <Tooltip content={CustomTooltip} />
+          <Line
+            type="stepAfter"
+            dataKey="average"
+            stroke="url(#gradient)"
+            strokeWidth={1.5}
+            dot={false}
+          />
+          <Brush
+            dataKey="x"
+            height={8}
+            stroke="#378ce7"
+            startIndex={brushRange[0]}
+            endIndex={graphData.length - 1}
+            onChange={handleBrushChange}
+            tickFormatter={formatBrush}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+      <p>
+        {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
+      </p>
+    </PredictedGraphContainer>
+  );
 }
+
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<number, string>) => {
+  if (active && payload && payload.length) {
+    const tootipLabel = label.replace("-", "년 ") + "월";
+
+    return (
+      <CustomToolTipContainer>
+        <p className="label">{tootipLabel}</p>
+        <p className="average">평균: {calPriceUnit(payload[0].value!)}</p>
+      </CustomToolTipContainer>
+    );
+  }
+};
+
+const CustomToolTipContainer = styled.div`
+  background-color: white;
+  font-size: 10px;
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(${(props) => props.theme.colors.primaryRGB}, 0.5);
+  box-shadow: 0 5px 5px rgba(${(props) => props.theme.colors.primaryRGB}, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  .average {
+    font-weight: 700;
+  }
+`;
+
+const PredictedGraphContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > p:last-child {
+    margin-top: 6px;
+    font-size: 13px;
+    color: ${(props) => props.theme.colors.primary};
+  }
+`;

@@ -14,7 +14,7 @@ export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
   return (
     <ResultBarBodyTemplate title="거래예측가" scrollRef={scrollRef}>
       <PredictedHead setSize={setSize} />
-      <PredictedGraph size={size} />
+      <PredictedGraph />
     </ResultBarBodyTemplate>
   );
 }

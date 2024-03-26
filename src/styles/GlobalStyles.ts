@@ -1,4 +1,4 @@
-import { createGlobalStyle, css, keyframes } from "styled-components";
+import { createGlobalStyle, css, keyframes, styled } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   *{
@@ -73,5 +73,28 @@ export const fadeInAnimation = keyframes`
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+`;
+
+export const smallSectionContainer = css`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  & > div:first-child {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 6px;
+    margin-bottom: 8px;
+    & > svg {
+      color: ${(props) => props.theme.colors.grayFont};
+      font-size: 14px;
+    }
+    & > h5 {
+      position: absolute;
+      left: 19px;
+      top: -2px;
+      font-size: 12px;
+    }
   }
 `;

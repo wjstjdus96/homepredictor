@@ -1,4 +1,11 @@
 export const temp_graph_data = [
+  { date: "2020-06", average: 200000000 },
+  { date: "2020-07", average: 300000000 },
+  { date: "2020-08", average: 400000000 },
+  { date: "2020-09", average: 100000000 },
+  { date: "2020-10", average: 200000000 },
+  { date: "2020-11", average: 300000000 },
+  { date: "2020-12", average: 400000000 },
   { date: "2021-01", average: 100000000 },
   { date: "2021-02", average: 200000000 },
   { date: "2021-03", average: 300000000 },
@@ -140,3 +147,14 @@ export const temp_size_data = [
     },
   },
 ];
+
+export const temp_traffic_data = {
+  subway: [
+    { name: "홍대입구역", distance: 180, line: "2" },
+    { name: "까치산역", distance: 120, line: "5" },
+  ],
+  bus: [
+    { name: "강원슈퍼", distance: 180 },
+    { name: "까치산역 4번출구", distance: 120 },
+  ],
+};

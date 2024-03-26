@@ -8,7 +8,12 @@ import ResultBarMenu from "./ResultBarMenu";
 import ResultBarSearch from "./ResultBarSearch";
 import Traffic from "./Traffic/Traffic";
 
-export default function ResultBar() {
+interface IResultBar {
+  apartmentName: string;
+  apartmentAdd: string;
+}
+
+export default function ResultBar({ apartmentName, apartmentAdd }: IResultBar) {
   const [isOpen, setIsOpen] = useState(false);
   const scrollRef = useRef<HTMLElement[] | null[]>([]);
   const [tabMenuIdx, setTabMenuIdx] = useState(0);
@@ -17,9 +22,9 @@ export default function ResultBar() {
     var resultBody = document.getElementById("resultBody");
     const changeTabMenuStyle = () => {
       scrollRef.current.forEach((ref, idx) => {
-        const targetTop = ref?.offsetTop! - ref?.offsetHeight!;
-        const scrollTop = resultBody?.scrollTop!;
-        if (targetTop < scrollTop) {
+        const { top } = ref!.getBoundingClientRect();
+        const offsetTop = resultBody?.offsetTop!;
+        if (top - 2 <= offsetTop) {
           setTabMenuIdx(idx);
         }
       });
@@ -34,8 +39,8 @@ export default function ResultBar() {
     <ResultBarContainer>
       {isOpen && <ResultBarSearch />}
       <ResultBarHead
-        apartmentName={"현대아파트"}
-        apartmentAdd={"서울특별시 영등포구 당산로 95"}
+        apartmentName={apartmentName}
+        apartmentAdd={apartmentAdd}
         setIsOpen={setIsOpen}
       />
       <ResultBarMenu scrollRef={scrollRef} tabMenuIdx={tabMenuIdx} />
