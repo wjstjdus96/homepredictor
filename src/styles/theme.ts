@@ -2,6 +2,7 @@ import { DefaultTheme } from "styled-components";
 
 const colors = {
   primary: "#378ce7",
+  primaryRGB: "55, 140, 231",
   grayFont: "#B9BABA",
 };
 

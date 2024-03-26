@@ -1,22 +1,17 @@
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import ResultBarHead from "./ResultBarHead";
-import { useState, useRef, useEffect } from "react";
-import ResultBarSearch from "./ResultBarSearch";
-import ResultBarMenu from "./ResultBarMenu";
-import PredictedPrice from "./PredictedPrice/PredictedPrice";
-import Traffic from "./Traffic/Traffic";
 import Facilities from "./Facilities/Facilities";
+import PredictedPrice from "./PredictedPrice/PredictedPrice";
 import RelatedNews from "./RelatedNews/RelatedNews";
+import ResultBarHead from "./ResultBarHead";
+import ResultBarMenu from "./ResultBarMenu";
+import ResultBarSearch from "./ResultBarSearch";
+import Traffic from "./Traffic/Traffic";
 
 export default function ResultBar() {
   const [isOpen, setIsOpen] = useState(false);
   const scrollRef = useRef<HTMLElement[] | null[]>([]);
-  const tabMenuRef = useRef<HTMLElement[] | null[]>([]);
-  const [tabMenuIdx, setTabMenuIdx] = useState(100);
-
-  useEffect(() => {
-    scrollRef.current[tabMenuIdx]?.scrollIntoView({ behavior: "smooth" });
-  }, [scrollRef, tabMenuIdx]);
+  const [tabMenuIdx, setTabMenuIdx] = useState(0);
 
   useEffect(() => {
     var resultBody = document.getElementById("resultBody");
@@ -25,13 +20,7 @@ export default function ResultBar() {
         const targetTop = ref?.offsetTop! - ref?.offsetHeight!;
         const scrollTop = resultBody?.scrollTop!;
         if (targetTop < scrollTop) {
-          tabMenuRef.current.forEach((ref, tabIdx) => {
-            if (idx == tabIdx) {
-              ref!.className += " active";
-            } else {
-              ref!.className = ref!.className.replace(" active", "");
-            }
-          });
+          setTabMenuIdx(idx);
         }
       });
     };
@@ -49,7 +38,7 @@ export default function ResultBar() {
         apartmentAdd={"서울특별시 영등포구 당산로 95"}
         setIsOpen={setIsOpen}
       />
-      <ResultBarMenu tabMenuRef={tabMenuRef} setTabMenu={setTabMenuIdx} />
+      <ResultBarMenu scrollRef={scrollRef} tabMenuIdx={tabMenuIdx} />
       <ResultBodyBox id="resultBody">
         <PredictedPrice
           scrollRef={(ref: any) => (scrollRef.current[0] = ref)}
@@ -72,4 +61,17 @@ const ResultBarContainer = styled.section`
 const ResultBodyBox = styled.div`
   height: 100%;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: ${(props) => props.theme.colors.grayFont};
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, 0.1);
+  }
 `;
