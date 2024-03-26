@@ -17,7 +17,7 @@ export const SearchBar = () => {
   const navigate = useNavigate();
   const showBuildingInfo = (id: number, address: string) => {
     setClickedAddress(address);
-    navigate(`/result/:${id}`);
+    navigate(`/result/${id}`);
   };
   const boldMatchingSubstring = (str: string, substr: string) => {
     const index = str.indexOf(substr);

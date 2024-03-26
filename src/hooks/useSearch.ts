@@ -29,5 +29,5 @@ export const useSearch = () => {
     setAddress(e.target.value);
   };
 
-  return { address, selectedTownData, typeAddress };
+  return { address, selectedTownData, typeAddress, setAddress };
 };

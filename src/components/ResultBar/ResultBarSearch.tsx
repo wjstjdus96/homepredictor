@@ -9,12 +9,13 @@ import { addressState } from "../../pages/Home/State/AddressState";
 import { useSetRecoilState } from "recoil";
 
 export default function ResultBarSearch() {
-  const { address, selectedTownData, typeAddress } = useSearch();
+  const { address, selectedTownData, typeAddress, setAddress } = useSearch();
   const setClickedAddress = useSetRecoilState(addressState);
   const navigate = useNavigate();
   const showBuildingInfo = (id: number, address: string) => {
     setClickedAddress(address);
-    navigate(`/result/:${id}`);
+    navigate(`/result/${id}`);
+    setAddress("");
   };
   const boldMatchingSubstring = (str: string, substr: string) => {
     const index = str.indexOf(substr);
@@ -93,7 +94,7 @@ const ResultSearchResultDiv = styled.div`
   position: absolute;
   width: 88%;
   left: 1rem;
-  height: 20rem;
+  max-height: 20rem;
   top: 3rem;
   background-color: white;
   z-index: 10;
