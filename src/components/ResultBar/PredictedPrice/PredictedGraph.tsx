@@ -28,7 +28,7 @@ export default function PredictedGraph() {
     return new Intl.NumberFormat("ko-KR", {
       notation: "compact",
       maximumFractionDigits: 1,
-    }).format(tickItem);
+    }).format(tickItem * 10000);
   };
 
   const formatXAxis = (tickItem: string) => {
