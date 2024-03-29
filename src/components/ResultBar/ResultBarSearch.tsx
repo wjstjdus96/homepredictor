@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { flexCenter } from "../../styles/GlobalStyles";
 import { FaSearch } from "react-icons/fa";
@@ -12,11 +12,23 @@ export default function ResultBarSearch() {
   const { address, selectedTownData, typeAddress, setAddress } = useSearch();
   const setClickedAddress = useSetRecoilState(addressState);
   const navigate = useNavigate();
+  const relatedRef = useRef<HTMLDivElement>(null);
+  const [relatedResultShow, setRelatedResultShow] = useState(false);
+
+  const clickResultOutside = (e: any) => {
+    const currentRef = relatedRef.current;
+    if (currentRef && !currentRef?.contains(e.target as Node)) {
+      setRelatedResultShow(false);
+    }
+  };
+
   const showBuildingInfo = (id: number, address: string) => {
     setClickedAddress(address);
     navigate(`/result/${id}`);
     setAddress("");
+    setRelatedResultShow(false);
   };
+
   const boldMatchingSubstring = (str: string, substr: string) => {
     const index = str.indexOf(substr);
     if (index !== -1) {
@@ -30,17 +42,32 @@ export default function ResultBarSearch() {
     }
     return str;
   };
+
+  useEffect(() => {
+    if (address.length > 0 && !relatedResultShow) {
+      setRelatedResultShow(true);
+    }
+  }, [address.length]);
+
+  useEffect(() => {
+    document.addEventListener("click", clickResultOutside);
+    return () => {
+      document.removeEventListener("click", clickResultOutside);
+    };
+  }, [relatedRef.current]);
+
   return (
     <ResultBarSearchContainer>
       <ResultSearchMainDiv>
         <FaSearch />
         <input
           placeholder="주소, 건물명 등을 입력하세요"
+          value={address}
           onChange={typeAddress}
         />
       </ResultSearchMainDiv>
-      {address.length > 0 && (
-        <ResultSearchResultDiv>
+      {relatedResultShow && (
+        <ResultSearchResultDiv ref={relatedRef}>
           {selectedTownData !== null && selectedTownData.length > 0 ? (
             <ScrollDiv>
               {selectedTownData.map((el: HouseInfo, idx: number) => (
