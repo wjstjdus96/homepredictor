@@ -25,7 +25,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [dataType, setDataType] = useState<string>("sim");
   const [newsData, setNewsData] = useState<News[]>([]);
   const [curPage, setCurPage] = useState<number>(1);
-  const address = useRecoilValue(addressState).split(" ")[1];
+  const address = `${useRecoilValue(addressState).split(" ")[1]} ${useRecoilValue(addressState).split(" ").at(-1)}`;
   const setDataSim = () => {
     setSelectedIdx(0);
     setDataType("sim");
@@ -104,17 +104,20 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
             •최신순
           </DataTypeText>
         </RelatedNewsHeader>
-        {newsData.map((el: News) => {
-          return (
-            <NewsContentDiv onClick={() => openNews(el.originallink)}>
-              <h3>{el.title.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</h3>
-              <p>{el.description.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</p>
-              <div>
-                <span>{setDateFormat(el.pubDate)}</span>
-              </div>
-            </NewsContentDiv>
-          );
-        })}
+        {newsData.length > 0 ? (
+          newsData.map((el: News) => {
+            return (
+              <NewsContentDiv onClick={() => openNews(el.originallink)}>
+                <h3>{el.title.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</h3>
+                <p>{el.description.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</p>
+                <div>
+                  <span>{setDateFormat(el.pubDate)}</span>
+                </div>
+              </NewsContentDiv>
+            );
+          })
+        ) : <NewsContentDiv>검색 결과가 없습니다.</NewsContentDiv>}
+        
         <PagenationDiv>
           <IoMdArrowDropleft onClick={() => pagenation("prev")} />
           <div>
