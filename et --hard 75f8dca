@@ -1,0 +1,22 @@
+[33mcommit 569e01465990ba795e39d8b1a7bfac489ecc3d8e[m[33m ([m[1;36mHEAD -> [m[1;32mfeat#2[m[33m, [m[1;31morigin/feat#2[m[33m)[m
+Author: kinggh <fmaxgo@naver.com>
+Date:   Fri Mar 22 10:26:02 2024 +0900
+
+    Fix: API URL 수정
+
+[33mcommit be96950603f9a44caf474752f4c5d6e72e385263[m
+Author: kinggh <fmaxgo@naver.com>
+Date:   Thu Mar 21 14:46:57 2024 +0900
+
+    Feat: 상세 설명 페이지 Section1 제
+    설명 컴포넌트 제작
+    모바일 반응성 추가
+
+[33mcommit 473147ccba650cd23deec31208bbae3f6a56b9b4[m
+Merge: 735cf90 b0096e7
+Author: Seoyeon <77755620+wjstjdus96@users.noreply.github.com>
+Date:   Thu Mar 21 10:04:49 2024 +0900
+
+    Merge pull request #8 from KingGyeongHoo/feat#1
+    
+    Feat#1
