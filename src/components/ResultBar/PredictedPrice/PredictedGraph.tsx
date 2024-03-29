@@ -28,7 +28,7 @@ export default function PredictedGraph() {
     return new Intl.NumberFormat("ko-KR", {
       notation: "compact",
       maximumFractionDigits: 1,
-    }).format(tickItem);
+    }).format(tickItem * 10000);
   };
 
   const formatXAxis = (tickItem: string) => {
@@ -141,5 +141,13 @@ const PredictedGraphContainer = styled.div`
     margin-top: 6px;
     font-size: 13px;
     color: ${(props) => props.theme.colors.primary};
+  }
+
+  rect.recharts-brush-slide {
+    cursor: default !important;
+  }
+
+  g.recharts-layer.recharts-brush-traveller {
+    cursor: pointer !important;
   }
 `;
