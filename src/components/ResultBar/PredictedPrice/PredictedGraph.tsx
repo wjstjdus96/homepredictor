@@ -15,7 +15,7 @@ import styled from "styled-components";
 import { temp_graph_data } from "../../../consts/tempData";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
 
-export default function PredictedGraph() {
+export default function PredictedGraph({}) {
   const [graphData, setGraphData] = useState(temp_graph_data);
   const predictedIndex = graphData.length - 4;
   const [brushRange, setBrushRange] = useState([
@@ -48,6 +48,10 @@ export default function PredictedGraph() {
     const percentage = 100 - (2.6 / (tot - 1)) * 100;
     setColorPercent(percentage);
   }, [brushRange]);
+
+  useEffect(() => {
+    setGraphData(temp_graph_data);
+  }, []);
 
   return (
     <PredictedGraphContainer>

@@ -1,7 +1,5 @@
-import { useState, useRef } from "react";
 import axios from "axios";
-import { useSetRecoilState } from "recoil";
-import { addressState } from "../pages/Home/State/AddressState";
+import { useState } from "react";
 
 export const useSearch = () => {
   const [address, setAddress] = useState<string>("");

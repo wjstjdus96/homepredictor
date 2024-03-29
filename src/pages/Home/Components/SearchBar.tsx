@@ -1,10 +1,8 @@
-import styled from "styled-components";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addressState } from "../State/AddressState";
 import { useSetRecoilState } from "recoil";
-import axios from "axios";
+import styled from "styled-components";
 import { useSearch } from "../../../hooks/useSearch";
+import { addressState } from "../State/AddressState";
 
 export interface HouseInfo {
   id: number;

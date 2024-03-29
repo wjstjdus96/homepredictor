@@ -10,12 +10,12 @@ export interface ITrafficItem {
 
 export default function TrafficItem({ name, distance, line }: ITrafficItem) {
   const selectSubwayColor = (line: string) => {
-    if (line == "1") return "#0d3692";
-    else if (line == "2") return "#33a23d";
-    else if (line == "3") return "#fe5d10";
-    else if (line == "4") return "#00a2d1";
-    else if (line == "5") return "#8b50a4";
-    else if (line == "6") return "#c55c1d";
+    if (line === "1") return "#0d3692";
+    else if (line === "2") return "#33a23d";
+    else if (line === "3") return "#fe5d10";
+    else if (line === "4") return "#00a2d1";
+    else if (line === "5") return "#8b50a4";
+    else if (line === "6") return "#c55c1d";
     return "";
   };
 

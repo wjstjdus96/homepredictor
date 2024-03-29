@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
-import PredictedHead from "./PredictedHead";
 import { useState } from "react";
+import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 import PredictedGraph from "./PredictedGraph";
+import PredictedHead from "./PredictedHead";
 
 export interface IResultBodyTemplate {
   scrollRef: any;
 }
 
 export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
+  // eslint-disable-next-line
   const [size, setSize] = useState<number>(0);
 
   return (
