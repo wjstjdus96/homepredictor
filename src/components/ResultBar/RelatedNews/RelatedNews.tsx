@@ -48,7 +48,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/search", {
+      .get("https://homepredictor.netlify.app/search", {
         params: {
           query: `${address} 부동산`,
           sort: dataType,
