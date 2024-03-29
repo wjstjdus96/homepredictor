@@ -18,7 +18,6 @@ export default function ResultBarMenu({
   tabMenuIdx,
 }: IResultBarMenu) {
   const onClickTabMenu = (menu: number) => {
-    console.log(menu);
     scrollRef.current[menu]?.scrollIntoView({ behavior: "smooth" });
   };
 
