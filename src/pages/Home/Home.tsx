@@ -5,10 +5,12 @@ import { SearchBar } from './Components/SearchBar'
 import { FirstSection } from './Components/FirstSection'
 import { SecondSection } from './Components/SecondSection'
 import { ThirdSection } from './Components/ThirdSection'
+import TopButton from './Components/TopButton'
 
 export default function Home() {
   return (
     <>
+      <TopButton></TopButton>
       <MainContainer>
         <Header></Header>
         <SearchBarDiv>
