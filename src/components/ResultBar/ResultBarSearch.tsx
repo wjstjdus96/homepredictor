@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import { flexCenter } from "../../styles/GlobalStyles";
+import { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { HouseInfo, SearchBar } from "../../pages/Home/Components/SearchBar";
-import { useSearch } from "../../hooks/useSearch";
 import { useNavigate } from "react-router-dom";
-import { addressState } from "../../pages/Home/State/AddressState";
 import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import { useSearch } from "../../hooks/useSearch";
+import { HouseInfo } from "../../pages/Home/Components/SearchBar";
+import { addressState } from "../../pages/Home/State/AddressState";
 
 export default function ResultBarSearch() {
   const { address, selectedTownData, typeAddress, setAddress } = useSearch();
