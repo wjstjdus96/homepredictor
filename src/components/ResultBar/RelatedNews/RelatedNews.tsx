@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { addressState } from "../../../pages/Home/State/AddressState";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
+import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 
 interface Selected {
   idx: number;
@@ -23,17 +24,17 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const [dataType, setDataType] = useState<string>("sim");
   const [newsData, setNewsData] = useState<News[]>([]);
-  const [curPage, serCurPage] = useState<number>(1);
+  const [curPage, setCurPage] = useState<number>(1);
   const address = useRecoilValue(addressState).split(" ")[1];
   const setDataSim = () => {
     setSelectedIdx(0);
     setDataType("sim");
-    serCurPage(1);
+    setCurPage(1);
   };
   const setDataDate = () => {
     setSelectedIdx(1);
     setDataType("date");
-    serCurPage(1);
+    setCurPage(1);
   };
   const setDateFormat = (str: string) => {
     const date = new Date(str);
@@ -63,6 +64,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   };
 
   const [pageArr, setPageArr] = useState<number[]>([1, 2, 3, 4, 5]);
+
   useEffect(() => {
     if (curPage % 5 === 1) {
       setPageArr(Array.from({ length: 5 }, (_, index) => index + curPage));
@@ -72,25 +74,27 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
       );
     }
   }, [curPage]);
-  const pagenation = (e: any) => {
-    if (e.target.textContent === "Prev") {
+
+  const pagenation = (text: string) => {
+    if (text === "prev") {
       if (curPage === 1) {
-        serCurPage(1);
+        setCurPage(1);
       } else if (curPage > 1) {
-        serCurPage(curPage - 1);
+        setCurPage(curPage - 1);
       }
-    } else if (e.target.textContent === "Next") {
+    } else if (text === "next") {
       if (curPage === 25) {
-        serCurPage(25);
+        setCurPage(25);
       } else if (curPage < 25) {
-        serCurPage(curPage + 1);
+        setCurPage(curPage + 1);
       }
-    } else {
-      serCurPage(e.target.textContent / 1);
     }
   };
+  const onClickPage = (el: number) => {
+    setCurPage(el);
+  };
   return (
-    <ResultBarBodyTemplate title="관련뉴스" scrollRef={scrollRef}>
+    <ResultBarBodyTemplate title="관련뉴스" scrollRef={scrollRef} margin="3px">
       <RelatedNewsContainer>
         <RelatedNewsHeader>
           <DataTypeText idx={0} selectedIdx={selectedIdx} onClick={setDataSim}>
@@ -112,19 +116,19 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
           );
         })}
         <PagenationDiv>
-          <div>
-            <span onClick={pagenation}>Prev</span>
-          </div>
+          <IoMdArrowDropleft onClick={() => pagenation("prev")} />
           <div>
             {pageArr.map((el) => (
-              <PageSpan page={el} curPage={curPage} onClick={pagenation}>
+              <PageSpan
+                page={el}
+                curPage={curPage}
+                onClick={() => onClickPage(el)}
+              >
                 {el}
               </PageSpan>
             ))}
           </div>
-          <div>
-            <span onClick={pagenation}>Next</span>
-          </div>
+          <IoMdArrowDropright onClick={() => pagenation("next")} />
         </PagenationDiv>
       </RelatedNewsContainer>
     </ResultBarBodyTemplate>
@@ -213,9 +217,12 @@ const PagenationDiv = styled.div`
       cursor: pointer;
     }
   }
+  svg {
+    cursor: pointer;
+  }
 `;
 const PageSpan = styled.span<Page>`
-  font-size: 1em;
+  font-size: 0.8em;
   color: ${(props) =>
     props.curPage === props.page ? props.theme.colors.primary : "black"};
 `;
