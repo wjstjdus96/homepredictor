@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
-import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
 import { useState } from "react";
+import styled from "styled-components";
 import { temp_traffic_data } from "../../../consts/tempData";
+import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
+import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 import TraficBus from "./TraficBus";
 import TraficSubway from "./TraficSubway";
-import { useEffect } from "react";
 
 export default function Traffic({ scrollRef }: IResultBodyTemplate) {
+  // eslint-disable-next-line
   const [trafficInfo, setTrafficInfo] = useState<any>(temp_traffic_data);
 
   return (

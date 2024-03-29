@@ -58,7 +58,7 @@ function PredictedHead({ setSize }: IPredictedHead) {
       .catch((err) => {
         console.log("에러가 발생했습니다" + err);
       });
-  }, [apartmentId]);
+  }, [apartmentId, onClickSquare]);
 
   return (
     <>
@@ -74,7 +74,7 @@ function PredictedHead({ setSize }: IPredictedHead) {
                   idx
                 )
               }
-              isActive={activeBtn == idx}
+              isActive={activeBtn === idx}
             >
               {item.size}평
             </SizeButton>

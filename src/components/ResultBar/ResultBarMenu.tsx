@@ -26,7 +26,7 @@ export default function ResultBarMenu({
       {RESULT_TAB.map(({ idx, name }) => (
         <ResultBarMenuItem
           key={idx}
-          isActive={idx == tabMenuIdx}
+          isActive={idx === tabMenuIdx}
           onClick={() => onClickTabMenu(idx)}
         >
           {name}
