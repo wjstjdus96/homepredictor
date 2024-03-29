@@ -24,7 +24,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [dataType, setDataType] = useState<string>("sim");
   const [newsData, setNewsData] = useState<News[]>([]);
   const [curPage, serCurPage] = useState<number>(1);
-  const address = useRecoilValue(addressState).split(" ")[1];
+  const address = `${useRecoilValue(addressState).split(" ")[1]} ${useRecoilValue(addressState).split(" ").at(-1)}`;
   const setDataSim = () => {
     setSelectedIdx(0);
     setDataType("sim");

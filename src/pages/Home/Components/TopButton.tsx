@@ -24,7 +24,7 @@ export default function TopButton() {
         clearTimeout(scrollTimeout)
         scrollTimeout = setTimeout(() => {
             scrollDiv.style.opacity = '1'
-        }, 1000)
+        }, 300)
       }
   })
   const scrollToTop =() => {
