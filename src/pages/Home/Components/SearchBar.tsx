@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addressState } from "../State/AddressState";
 import { useSetRecoilState } from "recoil";
@@ -10,77 +10,28 @@ export interface HouseInfo {
   id: number;
   address: string;
 }
-interface Hover{
-  idx?:number;
-  hoveredIdx?:number;
-  mouseOverEnabled?:boolean;
-}
-
-const boldMatchingSubstring = (str: string, substr: string) => {
-  const index = str.indexOf(substr);
-  if (index !== -1) {
-    return (
-      <span>
-        {str.substring(0, index)}
-        <HighLightSpan>{substr}</HighLightSpan>
-        {str.substring(index + substr.length)}
-      </span>
-    );
-  }
-  return str;
-};
 
 export const SearchBar = () => {
-  const [hoveredIdx, setHoveredIdx] = useState<number>(-1)
   const { address, selectedTownData, typeAddress } = useSearch();
   const setClickedAddress = useSetRecoilState(addressState);
-  const scrollDivRef = useRef<any>(null);
-  const [mouseOverEnabled, setMouseOverEnabled] = useState<boolean>(true)
   const navigate = useNavigate();
   const showBuildingInfo = (id: number, address: string) => {
     setClickedAddress(address);
     navigate(`/result/${id}`);
   };
-
-  useEffect(() => {
-    const handleKeyDown = (e:KeyboardEvent) => {
-      setMouseOverEnabled(false)
-      if (e.key === 'ArrowDown') {
-        if(hoveredIdx < 0){
-          setHoveredIdx(0)
-        } else if(hoveredIdx === selectedTownData.length - 1) {
-          setHoveredIdx(selectedTownData.length - 1)
-        } else {
-          setHoveredIdx(hoveredIdx + 1)
-        }
-      } else if(e.key === 'ArrowUp'){
-        if(hoveredIdx === 0){
-          setHoveredIdx(0)
-        } else {
-          setHoveredIdx(hoveredIdx - 1)
-        }
-      }
-    };
-
-    // 키보드 이벤트 리스너 등록
-    window.addEventListener('keydown', handleKeyDown);
-
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [hoveredIdx]); // 의존성 배열이 빈 배열이므로 한 번만 실행됨
-
-  const itemHeight = 40; // SearchResultContent의 높이 가정
-  const visibleItemCount = Math.round((window.innerHeight * 0.6)/46);
-  useEffect(() => {
-    const scrollDiv = scrollDivRef.current;
-    if (scrollDiv) {
-      const scrollToIdx = hoveredIdx - visibleItemCount + 1;
-      const scrollAmount = scrollToIdx * itemHeight;
-      scrollDiv.scrollTop = scrollAmount;
+  const boldMatchingSubstring = (str: string, substr: string) => {
+    const index = str.indexOf(substr);
+    if (index !== -1) {
+      return (
+        <span>
+          {str.substring(0, index)}
+          <HighLightSpan>{substr}</HighLightSpan>
+          {str.substring(index + substr.length)}
+        </span>
+      );
     }
-  }, [hoveredIdx]);
+    return str;
+  };
 
   return (
     <SearchBarContainer>
@@ -100,17 +51,11 @@ export const SearchBar = () => {
       {address.length > 0 ? (
         <SearchResultDiv>
           {selectedTownData !== null && selectedTownData.length > 0 ? (
-            <ScrollDiv ref={scrollDivRef} onScroll={() => setMouseOverEnabled(false)}>
+            <ScrollDiv>
               {selectedTownData.map((el: HouseInfo, idx: number) => (
                 <SearchResultContent
                   key={idx}
-                  idx={idx}
-                  hoveredIdx={hoveredIdx}
-                  mouseOverEnabled={mouseOverEnabled}
                   onClick={() => showBuildingInfo(el.id, el.address)}
-                  onMouseOver={() => {
-                    setMouseOverEnabled(true)
-                  }}
                 >
                   {boldMatchingSubstring(el.address, address)}
                 </SearchResultContent>
@@ -235,7 +180,7 @@ const ScrollDiv = styled.div`
     background: #969696;
   }
 `;
-const SearchResultContent = styled.div<Hover>`
+const SearchResultContent = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -247,16 +192,17 @@ const SearchResultContent = styled.div<Hover>`
   @media (max-width: 600px) {
     font-size: 14px;
   }
-  font-weight: ${props => (props.idx === props.hoveredIdx && !props.mouseOverEnabled) && 'bold'};
+  &:hover {
+    font-weight: bold;
+  }
   transition: color 0.25s ease;
   overflow: hidden;
   cursor: pointer;
-  &:hover{
-    font-weight: ${props => props.mouseOverEnabled ? 'bold' : ''};
-  }
 `;
 const NoResearchContent = styled(SearchResultContent)`
-  font-weight: 400;
+  &:hover {
+    font-weight: 400;
+  }
 `;
 const HighLightSpan = styled.span`
   font-weight: bold;
