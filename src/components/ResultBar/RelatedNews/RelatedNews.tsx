@@ -1,12 +1,11 @@
-import styled from "styled-components";
-import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
-import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
-import { BooleanLiteral } from "typescript";
-import { useState, useEffect } from "react";
-import { addressState } from "../../../pages/Home/State/AddressState";
-import { useRecoilValue } from "recoil";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import { addressState } from "../../../pages/Home/State/AddressState";
+import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
+import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 
 interface Selected {
   idx: number;
@@ -25,7 +24,9 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [dataType, setDataType] = useState<string>("sim");
   const [newsData, setNewsData] = useState<News[]>([]);
   const [curPage, setCurPage] = useState<number>(1);
-  const address = `${useRecoilValue(addressState).split(" ")[1]} ${useRecoilValue(addressState).split(" ").at(-1)}`;
+  const address = `${
+    useRecoilValue(addressState).split(" ")[1]
+  } ${useRecoilValue(addressState).split(" ").at(-1)}`;
   const setDataSim = () => {
     setSelectedIdx(0);
     setDataType("sim");
@@ -109,15 +110,19 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
             return (
               <NewsContentDiv onClick={() => openNews(el.originallink)}>
                 <h3>{el.title.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</h3>
-                <p>{el.description.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</p>
+                <p>
+                  {el.description.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}
+                </p>
                 <div>
                   <span>{setDateFormat(el.pubDate)}</span>
                 </div>
               </NewsContentDiv>
             );
           })
-        ) : <NewsContentDiv>검색 결과가 없습니다.</NewsContentDiv>}
-        
+        ) : (
+          <NewsContentDiv>검색 결과가 없습니다.</NewsContentDiv>
+        )}
+
         <PagenationDiv>
           <IoMdArrowDropleft onClick={() => pagenation("prev")} />
           <div>

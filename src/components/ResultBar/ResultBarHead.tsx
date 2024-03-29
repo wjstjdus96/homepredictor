@@ -20,7 +20,10 @@ export default function ResultBarHead({
         <p>{apartmentAdd}</p>
       </SearchTitleBox>
       <SearchButton onClick={() => setIsOpen((prev) => !prev)}>
-        <img src={`${process.env.PUBLIC_URL}/img/search.png`} />
+        <img
+          src={`${process.env.PUBLIC_URL}/img/search.png`}
+          alt="검색버튼이미지"
+        />
       </SearchButton>
     </ResultBarHeadContainer>
   );
