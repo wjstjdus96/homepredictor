@@ -1,7 +1,10 @@
+import {
+  Map,
+  MapMarker,
+  MapTypeControl,
+  ZoomControl,
+} from "react-kakao-maps-sdk";
 import styled from "styled-components";
-import { useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import ResultMapZoomButton from "./ResultMapZoomButton";
 
 interface IResultMap {
   lat: number;
@@ -9,18 +12,13 @@ interface IResultMap {
 }
 
 export default function ResultMap({ lat, lng }: IResultMap) {
-  const [level, setLevel] = useState(3);
-
   return (
     <MapLayout>
-      <Map
-        center={{ lat, lng }}
-        style={{ width: "100%", height: "100%" }}
-        level={level}
-      >
+      <Map center={{ lat, lng }} style={{ width: "100%", height: "100%" }}>
         <MapMarker position={{ lat, lng }} />
+        <MapTypeControl />
+        <ZoomControl />
       </Map>
-      <ResultMapZoomButton setLevel={setLevel} />
     </MapLayout>
   );
 }

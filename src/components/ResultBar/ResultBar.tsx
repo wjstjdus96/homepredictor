@@ -7,6 +7,7 @@ import ResultBarHead from "./ResultBarHead";
 import ResultBarMenu from "./ResultBarMenu";
 import ResultBarSearch from "./ResultBarSearch";
 import Traffic from "./Traffic/Traffic";
+import { useParams } from "react-router-dom";
 
 interface IResultBar {
   apartmentName: string;
@@ -17,6 +18,11 @@ export default function ResultBar({ apartmentName, apartmentAdd }: IResultBar) {
   const [isOpen, setIsOpen] = useState(false);
   const scrollRef = useRef<HTMLElement[] | null[]>([]);
   const [tabMenuIdx, setTabMenuIdx] = useState(0);
+  const { apartmentId } = useParams();
+
+  useEffect(() => {
+    scrollRef.current[0]?.scrollIntoView({ behavior: "smooth" });
+  }, [apartmentId]);
 
   useEffect(() => {
     var resultBody = document.getElementById("resultBody");
