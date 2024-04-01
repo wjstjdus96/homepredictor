@@ -49,7 +49,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/search", {
+      .get("https://port-0-homepserver-2aat2cluginjts.sel5.cloudtype.app/search", {
         params: {
           query: `${address} 부동산`,
           sort: dataType,
