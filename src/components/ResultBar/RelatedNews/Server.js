@@ -11,8 +11,8 @@ app.use(cors())
 app.get('/search', (req, res) => {
   axios.get(`https://openapi.naver.com/v1/search/news.json?query=${req.query.query}&display=100&sort=${req.query.sort}`, {
     headers: {
-      'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
-      'X-Naver-Client-Secret': process.env.REACT_APP_NAVER_SECRET_KEY,
+      'X-Naver-Client-Id': 'wQar1yZR0GyPKK35iLjc',
+      'X-Naver-Client-Secret': 'lxhxpGYLGa',
     },
   })
   .then(response => {
