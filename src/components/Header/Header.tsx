@@ -20,7 +20,10 @@ export default function Header() {
 
   return (
     <HeaderLayout curpage={curPage}>
-      <h2 onClick={onClickLogo}>Home Predictor</h2>
+      <div onClick={onClickLogo}>
+        <img src={`${process.env.PUBLIC_URL}/img/logo_white.png`}></img>
+        <h2>Home Predictor</h2>
+      </div>
     </HeaderLayout>
   );
 }
@@ -31,11 +34,24 @@ const HeaderLayout = styled.header<CurrentPage>`
   height: 7vh;
   display: flex;
   align-items: center;
-
-  h2 {
-    color: white;
+  div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
     margin-left: 1rem;
-    font-weight: 700;
     cursor: pointer;
+    img{
+      width: auto;
+      height: 60%;
+      
+    }
+    h2 {
+      margin-left: 0.3rem;
+      color: white;
+      font-weight: 700;
+      
+    }
   }
+  
 `;
