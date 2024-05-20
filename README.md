@@ -6,26 +6,29 @@
 
 HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측해 현명한 소비 및 투자를 도와주는 AI 부동산 예측 서비스입니다.
 
-### 📆개발 기간
-**2024.03~**
+### 📆 개발 기간
+2024.03~2024.04
 
-### 🤼‍♂️팀원
+### 🤼‍♂️ 팀원
  - FE: 송경후, 전서연
  - BE: 장성수, 황규철, 정혜민
  - AI: 이명진, 엄효범
 
-## ✏목차
-1. **기술 스택**
-2. **주요 기능**
-3. **링크**
-4. **폴더 구조**
+### 🌍 배포링크
+~~[HomePredictor 배포링크](https://d26h5la7myzjb4.cloudfront.net/)~~  
+현재 서버유지 비용으로 인해 서버가 닫혀있는 상태입니다
 
-## 🛠기술 스택
+
+<br/>
+
+## 🛠 기술 스택
 - **Frontend**: <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"><img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/Styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"><img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white">
 - **Backend**: <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/nodejs-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
 - **AI**: <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><img src="https://img.shields.io/badge/jupyternotebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white"><img src="https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white"><img src="https://img.shields.io/badge/keras-D00000?style=for-the-badge&logo=keras&logoColor=white">
 - **Deployment**: <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"><img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
 - **Other Tools**: <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"><img src="https://img.shields.io/badge/photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white"><img src="https://img.shields.io/badge/slcak-4A154B?style=for-the-badge&logo=slack&logoColor=white"><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+
+<br/>
 
 ## 💻주요 기능
 
@@ -56,11 +59,11 @@ HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측
    - 네이버 검색 API를 이용해 지역 및 부동산 관련 뉴스를 크롤링 해옵니다.
    - 정확도순/최신순 선택에 따라 뉴스 데이터가 정렬되고, 페이지 이동이 가능합니다.
 
-## 📎링크
-### [배포](https://homepredictor.netlify.app/)
-### [Figma](https://www.figma.com/file/vgTUmYcOKal4pA5FaBq7CR/HomePredictor?type=design&node-id=0%3A1&mode=design&t=R5B9gbVyLHXXaLZv-1)
+## 📎 링크
 
-## 📁폴더 구조
+#### [Figma](https://www.figma.com/file/vgTUmYcOKal4pA5FaBq7CR/HomePredictor?type=design&node-id=0%3A1&mode=design&t=R5B9gbVyLHXXaLZv-1)
+
+## 📁 폴더 구조
 ```
 📦src
  ┣ 📂apis
