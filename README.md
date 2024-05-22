@@ -1,8 +1,6 @@
 # HomePredictor
-<p align="center">
-  <img src="https://github.com/KingGyeongHoo/homepredictor/assets/117385050/ee01d7bb-9988-4e55-87e9-a542d5010d9e" width="500" />
-  <img src="https://github.com/wjstjdus96/homepredictor/assets/77755620/102f065f-c2e3-47ca-8969-10f8f0f3091b" width="500" />
-</p>
+![판매자 Flow](https://github.com/wjstjdus96/byhand/assets/77755620/b69c771c-6d3f-4f00-bebd-4db2355ec8a7)
+
 
 ## 📃프로젝트 소개
 
@@ -33,6 +31,7 @@ HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측
 <br/>
 
 ## 💻주요 기능
+ <img src="https://github.com/KingGyeongHoo/homepredictor/assets/117385050/ee01d7bb-9988-4e55-87e9-a542d5010d9e" width="600" />
 
 ### 메인 페이지
  - **부동산 검색 및 연관검색어 결과**
@@ -43,6 +42,11 @@ HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측
  - **TOP 버튼 클릭시 화면 맨 위로 이동**
    - JavaScript의 스크롤링 기능을 사용하여 버튼 클릭시 페이지 맨 위(검색창)으로 이동하게 하였습니다.
    - 검색창에서는 보이지 않고, 스크롤시 컴포넌트를 가리지 않게 투명도가 조절됩니다.
+
+<br/>
+  
+ <img src="https://github.com/wjstjdus96/homepredictor/assets/77755620/102f065f-c2e3-47ca-8969-10f8f0f3091b" width="600" />
+ 
 ###  결과 페이지
  - **지도 어플리케이션**
    - KakaoMap API를 이용하여 지도 어플리케이션을 렌더링 하였습니다.
